@@ -1,0 +1,14 @@
+@font-face {
+    font-family: Inter;
+    src: url(../fonts/Inter/Inter-Regular.ttf);
+}
+
+@font-face {
+    font-family: GinetoFitTest;
+    src: url(../fonts/Gineto/GinetoFitTest-Regular.otf);
+}
+
+@font-face {
+    font-family: GinetoTest;
+    src: url(../fonts/Gineto/GinetoTest-Regular.otf);
+}

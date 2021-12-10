@@ -1,4 +1,10 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp } from 'vue';
+import App from './App.vue';
 
-createApp(App).mount('#app')
+// lit components
+import './components/Button';
+import DynamicStyles from './components/DynamicStyle';
+
+DynamicStyles.init();
+
+createApp(App).mount('#app');

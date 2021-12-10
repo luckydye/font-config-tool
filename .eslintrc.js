@@ -12,6 +12,11 @@ module.exports = {
     ecmaVersion: 2020
   },
   rules: {
+    'semi': "off",
+    'no-trailing-spaces': 'off',
+    'space-before-function-paren': 'off',
+    'padded-blocks': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
   }

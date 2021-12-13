@@ -1,0 +1,24 @@
+
+@keyframes crunch {
+    0% {
+        font-size: 3em;
+        font-variation-settings: 'wght' 800, 'wdth' 120;
+    }
+    50% {
+        font-size: 5em;
+        font-variation-settings: 'wght' 200, 'wdth' 10;
+    }
+    100% {
+        font-size: 3em;
+        font-variation-settings: 'wght' 800, 'wdth' 120;
+    }
+}
+
+.app-typography-special-animation {
+    font-size: 3em;
+    line-height: 100px;
+    position: relative;
+    animation: crunch 3s ease both infinite;
+    animation-delay: 1s;
+    white-space: nowrap;
+}

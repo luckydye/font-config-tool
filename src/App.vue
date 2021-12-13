@@ -1,5 +1,9 @@
 <template>
   <Feature/>
+
+  <footer>
+    
+  </footer>
 </template>
 
 <script>
@@ -16,4 +20,10 @@ export default {
 <style>
 @import "./css/global.css";
 @import "./css/fonts.css";
+
+@import "./css/font-combinations/font-combination-1.css";
+@import "./css/font-combinations/font-combination-2.css";
+@import "./css/font-combinations/font-combination-3.css";
+@import "./css/font-combinations/font-combination-4.css";
+@import "./css/font-combinations/font-combination-5.css";
 </style>

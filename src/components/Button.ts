@@ -35,14 +35,15 @@ export default class LinkButton extends LitElement {
             background: var(--background, #eee);
             color: inherit;
             border-radius: 3px;
+            border: 1px solid transparent;
             text-decoration: none;
         }
         .open-link:hover {
-            transform: translate(1px, 0);
+            
         }
         .open-link:active {
             transition: transform 0.01s ease-out 0s;
-            transform: translate(1px, 0.5px);
+            border-color: #CCC;
         }
         .material-icons {
             margin: 0 5px;

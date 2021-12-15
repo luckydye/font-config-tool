@@ -6,6 +6,7 @@ import './components/Button';
 import './components/HeaderBackground';
 import './components/ChildSelector';
 import './components/SpoilerHint';
+import './components/ResponsiveParagraph';
 
 // other
 import DynamicStyles from './components/DynamicStyle';

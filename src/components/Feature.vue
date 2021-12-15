@@ -24,8 +24,19 @@
         <div class="section-container">
           <br>
           <div class="content-wrapper font-combination-1">
-            <h3 description="font: Roboto Flex">Some Headline</h3>
-            <p description="also font: Roboto Flex">
+            <h3 description="font: RobotoFlex.ttf">Some Headline</h3>
+            <p description="also font: RobotoFlex.ttf">
+              Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. 
+            </p>
+          </div>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <div class="content-wrapper font-combination-6">
+            <h3 description="font: Inter.ttf">Some Headline</h3>
+            <p description="also font: Inter.ttf">
               Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. 
             </p>
           </div>
@@ -37,7 +48,7 @@
         <div class="content-wrapper">
           <h3>Pros</h3>
           <p>
-            If at leaast two variations of a font are used, variable fonts can be <strong>alot</strong> smaller.
+            A single variable font  <strong>can</strong> be alot smaller and save time, compared to thier fixed counter parts.
           </p>
           <p>
             It is possible to animate/transition variable font axes.
@@ -54,6 +65,48 @@
             Animation of variable fonts cause repaints and relayouts.
           </p>
         </div>
+      </div>
+      
+      <div class="section-container">
+        <h2>Animations</h2>
+
+        <h3>Bad Animations:</h3>
+        <spoiler-hint>
+          <div class="content-wrapper content-centered">
+            <div description="big and continues animation"
+                description-alt="causees layout shifts = bad perforamnce"
+              class="app-typography-headline-2 app-typography-special-animation">
+              Special Aniamtion
+            </div>
+
+            <br />
+            <br />
+
+            <h1 class="app-typography-headline-breathing" 
+                description-alt="Transitioning between two weights">
+
+              <span style="animation-delay: 0s">B</span>
+              <span style="animation-delay: 0.1s">r</span>
+              <span style="animation-delay: 0.2s">e</span>
+              <span style="animation-delay: 0.3s">a</span>
+              <span style="animation-delay: 0.4s">t</span>
+              <span style="animation-delay: 0.5s">h</span>
+              <span style="animation-delay: 0.6s">i</span>
+              <span style="animation-delay: 0.7s">n</span>
+              <span style="animation-delay: 0.8s">g</span>
+            </h1>
+          </div>
+        </spoiler-hint>
+
+        <br>
+        <br>
+
+        <h3>Good Animations:</h3>
+
+        <div class="content-wrapper">
+          <p>Minimum frame animations for slide-in/slide-out aniamtions etc. Dont run continues animations while the user interacts with the page.</p>
+        </div>
+
       </div>
 
       <div class="section-container">
@@ -84,43 +137,20 @@
           <br>
           <br>
 
-          <div description="More interesting button hover">
+          <div description="Smooth weight transition on hover">
             <link-button>Test Button</link-button>
           </div>
 
-        </div>
-      </div>
-      
-      <div class="section-container">
-        <h2>Animations</h2>
+          <br>
+          <br>
+          <br>
+          <br>
 
-        <spoiler-hint>
-          <div class="content-wrapper content-centered">
-            <div description="Too much animation"
-                description-alt="causees layout shifts = bad perforamnce"
-              class="app-typography-headline-2 app-typography-special-animation">
-              Special Aniamtion
-            </div>
-
-            <br />
-            <br />
-
-            <h1 class="app-typography-headline-breathing" 
-                description-alt="Transitioning between two weights">
-
-              <span style="animation-delay: 0s">B</span>
-              <span style="animation-delay: 0.1s">r</span>
-              <span style="animation-delay: 0.2s">e</span>
-              <span style="animation-delay: 0.3s">a</span>
-              <span style="animation-delay: 0.4s">t</span>
-              <span style="animation-delay: 0.5s">h</span>
-              <span style="animation-delay: 0.6s">i</span>
-              <span style="animation-delay: 0.7s">n</span>
-              <span style="animation-delay: 0.8s">g</span>
-            </h1>
+          <div description="Procedually thicker font on smaller screens">
+            <r-p>Responsive font size / redability</r-p>
           </div>
-        </spoiler-hint>
-        
+
+        </div>
       </div>
 
       <div>
@@ -131,6 +161,12 @@
             <img src="/support_table.png"/>
           </a>
         </div>
+
+        <br>
+        <br>
+        <br>
+
+        <p>Aber mangelhafter support von Design Tools.</p>
 
         <br>
         <br>
@@ -177,14 +213,14 @@ export default {
 
 child-selector span {
   font-size: 22px;
-  display: block;
+  display: inline-block;
   margin: 0 2px;
   cursor: pointer;
   transition: font-variation-settings .15s ease;
   font-family: RobotoFlex;
   font-variation-settings: 'wght' 300, 'wdth' 20;
   opacity: 0.5;
-  min-width: 100px;
+  width: 80px;
 }
 child-selector span:hover {
   opacity: 1;

@@ -26,4 +26,5 @@ export default {
 @import "./css/font-combinations/font-combination-3.css";
 @import "./css/font-combinations/font-combination-4.css";
 @import "./css/font-combinations/font-combination-5.css";
+@import "./css/font-combinations/font-combination-6.css";
 </style>

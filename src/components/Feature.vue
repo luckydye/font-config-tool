@@ -35,8 +35,8 @@
           <br>
           <br>
           <div class="content-wrapper font-combination-6">
-            <h3 description="font: Inter.ttf">Some Headline</h3>
-            <p description="also font: Inter.ttf">
+            <h3 description="font: Inter-Variable.ttf">Some Headline</h3>
+            <p description="also font: Inter-Variable.ttf">
               Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. 
             </p>
           </div>

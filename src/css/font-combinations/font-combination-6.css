@@ -2,8 +2,7 @@
 .font-combination-6 h3 {
     font-size: 28px;
     font-family: Inter, serif;
-    font-variation-settings: "wght" 800;
-    font-style: oblique 2.75deg;
+    font-variation-settings: "wght" 800, "slnt" -3;
 }
 
 .font-combination-6 p {

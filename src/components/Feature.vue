@@ -1,22 +1,5 @@
 <template>
   <div class="hello">
-
-    <div class="header">
-      <div class="header-container">
-        <h1>Variable Fonts</h1>
-
-        <div class="header-wrapper">
-          <p>
-            Variable Fonts sind linear interpolierbare OpenType Fonts, die aus einer einzigen Font File bestehen. Varaible Fonts können Variablen definieren (auch Axen genannt) um verschiedene Darstellungen zu generieren.
-          </p>
-        </div>
-      </div>
-
-      <div class="header-background">
-        <header-background></header-background>
-      </div>
-    </div>
-
     <div class="content app-typography-body">
       <div>
         <h2>Variation</h2>
@@ -25,7 +8,7 @@
           <br>
           <div class="content-wrapper font-combination-1">
             <h3 description="font: RobotoFlex.ttf">Some Headline</h3>
-            <p description="also font: RobotoFlex.ttf">
+            <p description="font: RobotoFlex.ttf">
               Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. 
             </p>
           </div>
@@ -36,7 +19,7 @@
           <br>
           <div class="content-wrapper font-combination-6">
             <h3 description="font: Inter-Variable.ttf">Some Headline</h3>
-            <p description="also font: Inter-Variable.ttf">
+            <p description="font: Inter-Variable.ttf">
               Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. 
             </p>
           </div>
@@ -146,15 +129,36 @@
           <br>
           <br>
 
-          <div description="Procedually thicker font on smaller screens">
-            <r-p>Responsive font size / redability</r-p>
+          <div description="Procedually thicker font">
+            <r-p>Responsive font size for redability on small devices.</r-p>
           </div>
+
+          <br>
+          <br>
+          <br>
+          <br>
+
+          <div description="Slide animation"></div>
+
+          <sample-sldier>
+            <slide>
+              <div class="slide">Lorem ipsum</div>
+            </slide>
+            <slide>
+              <div class="slide">At vero eos</div>
+            </slide>
+            <slide>
+              <div class="slide">Stet clita kasd </div>
+            </slide>
+          </sample-sldier>
 
         </div>
       </div>
 
       <div>
         <h2>Support</h2>
+
+        <p>Global 94.26%</p>
 
         <div class="content-wrapper">
           <a target="_blank" href="https://caniuse.com/variable-fonts">
@@ -166,7 +170,13 @@
         <br>
         <br>
 
-        <p>Aber mangelhafter support von Design Tools.</p>
+        <p>Aber mangelhafter support von Design Tools wie Adobe XD.</p>
+
+        <div class="content-wrapper">
+          <a target="_blank" href="https://v-fonts.com/support">
+            <img src="/design-tools-support-table.png"/>
+          </a>
+        </div>
 
         <br>
         <br>
@@ -178,7 +188,8 @@
 
         <div>
           <a target="_blank" description="Browse and try many variable fonts" href="https://v-fonts.com/">https://v-fonts.com/</a><br><br>
-          <a target="_blank" description-alt="Deeper Introduction"  href="https://web.dev/variable-fonts/">https://web.dev/variable-fonts/</a>
+          <a target="_blank" description-alt="Deeper Introduction"  href="https://web.dev/variable-fonts/">https://web.dev/variable-fonts/</a><br><br>
+          <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Fonts/Variable_Fonts_Guide">MDN Variable Fonts Guide</a>
         </div>
       </div>
 
@@ -240,6 +251,48 @@ link-button:hover {
   font-variation-settings: 'wght' 600;
   letter-spacing: 0.05em;
   color: #333;
+}
+
+slide {
+  min-width: 100%;
+  display: block;
+  font-size: 28px;
+  transition: opacity .2s ease .1s;
+}
+
+slide:not([active]) {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease;
+}
+
+.slide {
+  margin: 40px 0;
+  font-family: RobotoFlex, serif;
+  font-variation-settings: "wght" 200, "slnt" -1;
+  transition: font-variation-settings .1s ease .15s, letter-spacing .1s ease-out;
+  letter-spacing: 0.1em;
+}
+
+[transitioning] slide {
+  animation: slide .3s ease;
+}
+
+@keyframes slide {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(0.69);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+slide[active] .slide {
+  font-variation-settings: "wght" 600, "slnt" 0;
+  letter-spacing: 0.01em;
 }
 
 </style>

@@ -7,6 +7,7 @@ import './components/HeaderBackground';
 import './components/ChildSelector';
 import './components/SpoilerHint';
 import './components/ResponsiveParagraph';
+import './components/Slider';
 
 // other
 import DynamicStyles from './components/DynamicStyle';

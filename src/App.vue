@@ -1,4 +1,5 @@
 <template>
+  <Header/>
   <Feature/>
 
   <footer>
@@ -7,11 +8,13 @@
 </template>
 
 <script>
-import Feature from './components/Feature.vue'
+import Feature from './components/Feature.vue';
+import Header from './components/Header.vue';
 
 export default {
   name: 'App',
   components: {
+    Header,
     Feature
   }
 }

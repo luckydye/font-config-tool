@@ -1,21 +1,9 @@
 import { createApp } from 'vue';
-import App from './App.vue';
-
-// lit components
-import './components/Button';
-import './components/HeaderBackground';
-import './components/ChildSelector';
-import './components/SpoilerHint';
-import './components/ResponsiveParagraph';
-import './components/Slider';
-
-// other
-import DynamicStyles from './components/DynamicStyle';
-
-DynamicStyles.init();
+import router from './router';
+import App from './views/App.vue';
 
 window.addEventListener('scroll', e => {
     document.body.style.setProperty('--scrollY', `${window.scrollY}px`);
 })
 
-createApp(App).mount('#app');
+createApp(App).use(router).mount('#app');

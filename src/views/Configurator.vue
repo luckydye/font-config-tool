@@ -1,23 +1,22 @@
 <template>
   <div>Yo</div>
+
+  <text-editor></text-editor>
 </template>
 
 <script>
-import Feature from "../components/frontpage/Feature.vue";
-import Header from "../components/frontpage/Header.vue";
-import "../components/shared/Button";
-import "../components/frontpage/HeaderBackground";
-import "../components/configurator/ChildSelector";
-import "../components/frontpage/SpoilerHint";
-import "../components/frontpage/ResponsiveParagraph";
-import "../components/frontpage/Slider";
+import '../components/shared/Button';
+
+import '../components/configurator/Text';
+// import "../components/configurator/ChildSelector";
+
+// Components:
+// - a renderer that convert my custo mconfigurations into styles
+// - a state manager that own all the state to easily serialize it
 
 export default {
-  name: "App",
-  components: {
-    Header,
-    Feature,
-  },
+  name: 'App',
+  components: {},
 };
 </script>
 

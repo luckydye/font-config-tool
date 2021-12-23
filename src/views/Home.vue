@@ -2,9 +2,7 @@
   <Header/>
   <Feature/>
 
-  <footer>
-    
-  </footer>
+  <footer></footer>
 </template>
 
 <script>
@@ -21,9 +19,9 @@ export default {
   name: 'Home',
   components: {
     Header,
-    Feature
-  }
-}
+    Feature,
+  },
+};
 </script>
 
 <style>

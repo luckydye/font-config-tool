@@ -6,11 +6,11 @@ export default class Text extends LitElement {
   static get styles() {
     return css`
       :host {
-        --document-width: 650px;
+        --default-document-width: 650px;
 
         display: block;
-        padding-top: 80px;
-        max-width: var(--document-width);
+        padding-top: 20px;
+        max-width: var(--document-width, var(--default-document-width));
         margin: auto;
         text-align: left;
       }

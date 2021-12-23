@@ -1,9 +1,8 @@
 import { LitElement, html, css } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement } from 'lit/decorators';
 
 @customElement('child-selector')
 export default class ChildSelector extends LitElement {
-
   static get styles() {
     return css`
         :host {
@@ -15,7 +14,8 @@ export default class ChildSelector extends LitElement {
   activeChild = 0;
 
   clickCallback(e: MouseEvent) {
-    for (const child of this.children) {
+    for (let i = 0; i < this.children.length; i += 1) {
+      const child = this.children[i];
       child.removeAttribute('active');
 
       if (e.target === child) {

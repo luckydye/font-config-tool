@@ -5,6 +5,7 @@
     <app-state>
       <document-sizer></document-sizer>
       <text-editor></text-editor>
+      <side-bar></side-bar>
     </app-state>
   </div>
 </template>
@@ -15,6 +16,7 @@ import '../components/shared/Button';
 import '../components/configurator/Text';
 import '../components/configurator/AppState';
 import '../components/configurator/DocumentSizer';
+import '../components/configurator/Sidebar';
 // import "../components/configurator/ChildSelector";
 
 // Components:

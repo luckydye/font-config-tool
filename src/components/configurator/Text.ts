@@ -37,14 +37,16 @@ export default class Text extends LitElement {
         transform: translateY(-50%);
       }
 
-      p::before {
-        content: "Paragraph  –––––––––";
-      }
-      h1::before {
-        content: "H1  –––––––––";
-      }
-      h2::before {
-        content: "H2  –––––––––";
+      @media screen and (min-width: 1200px) {
+        p::before {
+          content: "Paragraph  –––––––––";
+        }
+        h1::before {
+          content: "H1  –––––––––";
+        }
+        h2::before {
+          content: "H2  –––––––––";
+        }
       }
 
       h1[focus]::after,

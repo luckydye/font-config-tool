@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { customElement } from 'lit/decorators';
+import State from '../../app/State';
 
 @customElement('document-sizer')
 export default class DocumentSizer extends LitElement {
@@ -64,6 +65,7 @@ export default class DocumentSizer extends LitElement {
           font-weight: bold;
           color: rgba(0, 0, 0, 0.25);
           user-select: none;
+          font-family: monospace;
         }
     `;
   }
@@ -108,18 +110,26 @@ export default class DocumentSizer extends LitElement {
       });
 
       window.addEventListener('pointerup', (e) => {
+        if (this.resizing !== 0) {
+          this.commitWidth();
+        }
         this.resizing = 0;
-        this.commitWidth();
       });
       window.addEventListener('pointercancel', (e) => {
+        if (this.resizing !== 0) {
+          this.commitWidth();
+        }
         this.resizing = 0;
-        this.commitWidth();
       });
     }
+
+    State.on((e) => {
+      this.setWidth(e.detail.document_width);
+    });
   }
 
   commitWidth() {
-    const ev = new CustomEvent('state', {
+    const ev = new CustomEvent('setstate', {
       bubbles: true,
       detail: {
         document_width: this.documentWidth,

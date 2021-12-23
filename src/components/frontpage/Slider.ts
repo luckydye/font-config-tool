@@ -1,31 +1,32 @@
 import { LitElement, html, css } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement } from 'lit/decorators';
 
 @customElement('sample-sldier')
 export default class SampleSlider extends LitElement {
-
   lastActiveChild = 0;
+
   activeChild = 0;
 
   updateSlide() {
     // set new slides position ---- assuming all slides have the same width
     const childWidth = this.children[0].clientWidth;
-    this.style.setProperty("--pos", `${this.activeChild * childWidth}px`);
-    this.style.setProperty("--prev-pos", `${this.lastActiveChild * childWidth}px`);
+    this.style.setProperty('--pos', `${this.activeChild * childWidth}px`);
+    this.style.setProperty('--prev-pos', `${this.lastActiveChild * childWidth}px`);
 
     // initiate transition animation
-    if(this.lastActiveChild != this.activeChild) {
-      this.setAttribute("transitioning", "");
+    if (this.lastActiveChild !== this.activeChild) {
+      this.setAttribute('transitioning', '');
 
-      if(this.lastActiveChild > this.activeChild) {
-        this.style.setProperty("--dir", `1`);
+      if (this.lastActiveChild > this.activeChild) {
+        this.style.setProperty('--dir', '1');
       } else {
-        this.style.setProperty("--dir", `-1`);
+        this.style.setProperty('--dir', '-1');
       }
     }
 
     // give active child active attribute
-    for (const child of this.children) {
+    for (let i = 0; i < this.children.length; i += 1) {
+      const child = this.children[i];
       child.removeAttribute('active');
       if (this.children[this.activeChild] === child) {
         child.setAttribute('active', '');
@@ -34,7 +35,7 @@ export default class SampleSlider extends LitElement {
 
     // reset transition animation
     setTimeout(() => {
-      this.removeAttribute("transitioning");
+      this.removeAttribute('transitioning');
     }, 330); // <--- transition time from css transition
 
     // update template
@@ -42,21 +43,21 @@ export default class SampleSlider extends LitElement {
   }
 
   connectedCallback() {
-      super.connectedCallback();
-      this.updateSlide();
+    super.connectedCallback();
+    this.updateSlide();
   }
 
   next() {
     this.setSlide(this.activeChild + 1);
   }
-  
+
   prev() {
     this.setSlide(this.activeChild - 1);
   }
-  
+
   setSlide(index: number) {
     this.lastActiveChild = this.activeChild;
-    this.activeChild = Math.max(Math.min(index, this.children.length-1), 0);
+    this.activeChild = Math.max(Math.min(index, this.children.length - 1), 0);
     this.updateSlide();
   }
 
@@ -140,7 +141,7 @@ export default class SampleSlider extends LitElement {
           <slot></slot>
         </div>
 
-        <div class="arrow arrow-right" @click="${this.next}" ?disabled="${this.activeChild >= this.children.length-1}">
+        <div class="arrow arrow-right" @click="${this.next}" ?disabled="${this.activeChild >= this.children.length - 1}">
           <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 21.446 37.891">
             <path id="Pfad_2" data-name="Pfad 2" d="M-403.662,284.6l15.41-15.41,15.41,15.41" transform="translate(288.134 407.197) rotate(90)" fill="none" stroke="#707070" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/>
           </svg>

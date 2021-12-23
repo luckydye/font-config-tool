@@ -22,7 +22,7 @@
 <script>
 export default {
   name: 'Header',
-  props: {}
+  props: {},
 };
 </script>
 
@@ -31,7 +31,7 @@ export default {
     max-width: 800px;
     margin: auto;
     min-height: 100px;
-    text-align: left;
+    text-align: center;
 }
 
 .header {
@@ -41,6 +41,10 @@ export default {
     margin-bottom: 80px;
     overflow: hidden;
     position: relative;
+}
+
+.header-wrapper {
+  line-height: 1.33em;
 }
 
 .header-background {

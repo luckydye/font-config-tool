@@ -1,9 +1,8 @@
 import { LitElement, html, css } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement } from 'lit/decorators';
 
 @customElement('r-p')
 export default class SpoilerHint extends LitElement {
-
   static get styles() {
     return css`
         :host {
@@ -14,11 +13,11 @@ export default class SpoilerHint extends LitElement {
   }
 
   constructor() {
-      super();
+    super();
 
-      window.addEventListener('resize', () => {
-        this.updateFormat();
-      });
+    window.addEventListener('resize', () => {
+      this.updateFormat();
+    });
   }
 
   updateFormat() {
@@ -30,7 +29,7 @@ export default class SpoilerHint extends LitElement {
     const maxWeight = 500;
 
     const fontWeight = winSize * (minWeight - maxWeight) + maxWeight;
-    this.style.setProperty("--weight", `${fontWeight}`);
+    this.style.setProperty('--weight', `${fontWeight}`);
   }
 
   render() {

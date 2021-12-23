@@ -1,9 +1,21 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/configurator">Configurator</router-link>
+    <div class="nav-item">
+      <router-link to="/">Home</router-link>
+    </div>
+    <div class="nav-item">
+      <router-link to="/configurator">Configurator</router-link>
+    </div>
+    <div class="nav-item">
+      <router-link to="/examples">Examples</router-link>
+    </div>
+    <div class="nav-item">
+      <router-link to="/resources">Resources</router-link>
+    </div>
   </div>
-  <router-view />
+  <div class="content">
+    <router-view />
+  </div>
 </template>
 
 <style lang="scss">
@@ -12,15 +24,46 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.header-spacer {
+  padding-top: 80px;
+}
+
 #nav {
   padding: 30px;
+  position: absolute;
+  z-index: 10000;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+
+  .nav-item {
+    margin: 0 25px;
+  }
 
   a {
-    font-weight: bold;
+    display: block;
+    font-weight: normal;
     color: #2c3e50;
+    text-decoration: none;
+    transition: all .25s ease;
+    opacity: 0.5;
+    user-select: none;
+
+    &:hover {
+      opacity: 1;
+    }
+    &:active {
+      transition-duration: 0s;
+      transform: scale(0.975);
+    }
+
+    &.router-link-active {
+      opacity: 1;
+    }
 
     &.router-link-exact-active {
-      color: #42b983;
+      color: #EEAA43;
     }
   }
 }

@@ -1,9 +1,8 @@
 import { LitElement, html, css } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement } from 'lit/decorators';
 
 @customElement('spoiler-hint')
 export default class SpoilerHint extends LitElement {
-
   static get styles() {
     return css`
         :host {
@@ -12,7 +11,7 @@ export default class SpoilerHint extends LitElement {
     `;
   }
 
-  isShown: boolean = false;
+  isShown = false;
 
   show() {
     this.isShown = true;
@@ -20,16 +19,15 @@ export default class SpoilerHint extends LitElement {
   }
 
   render() {
-    if(this.isShown) {
+    if (this.isShown) {
       return html`
           <slot></slot>
       `;
-    } else {
-      return html`
+    }
+    return html`
         <div>
           <link-button @click="${this.show.bind(this)}" displayIcon="">Show</link-button>
         </div>
       `;
-    }
   }
 }

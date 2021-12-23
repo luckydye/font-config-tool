@@ -1,9 +1,8 @@
 import { LitElement, html, css } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators';
 
 @customElement('link-button')
 export default class LinkButton extends LitElement {
-
   @property({ type: String })
   target: string | undefined;
 
@@ -39,7 +38,7 @@ export default class LinkButton extends LitElement {
             text-decoration: none;
         }
         .open-link:hover {
-            
+
         }
         .open-link:active {
             transition: transform 0.01s ease-out 0s;
@@ -65,8 +64,8 @@ export default class LinkButton extends LitElement {
   render() {
     return html`
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css" />
-        
-        <a target="${this.target}" rel="noreferrer" class="open-link" href="${this.href !== undefined ? this.href : 'javascript:()'}">
+
+        <a target="${this.target}" rel="noreferrer" class="open-link" href="${this.href !== undefined ? this.href : 'javascript:(() => {})()'}">
             <slot></slot> <span class="material-icons">${this.displayIcon}</span>
         </a>
     `;

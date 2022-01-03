@@ -1,3 +1,7 @@
+:root {
+    --accent-color: #EEAA43;
+}
+
 body {
     margin: 0;
     overflow: overlay;

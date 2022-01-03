@@ -10,9 +10,22 @@ export default class AppState extends LitElement {
   constructor() {
     super();
 
+    // handle custom state events with data
     this.addEventListener('state', ((e: CustomEvent) => {
       console.log('state event', e.detail);
       State.setState(e.detail);
+    }) as EventListener);
+
+    // handle any change event
+    this.addEventListener('change', ((e: CustomEvent) => {
+      const target = e.target as HTMLInputElement;
+      const key = target.getAttribute('state-key');
+
+      if (key != null) {
+        State.setState({
+          [key]: target.value,
+        });
+      }
     }) as EventListener);
   }
 

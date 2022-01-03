@@ -1,0 +1,11 @@
+.document {
+  padding-top: 40px;
+  padding-right: 140px;
+}
+
+.side-bar {
+  position: absolute;
+  top: 150px;
+  right: 20px;
+  z-index: 10000;
+}

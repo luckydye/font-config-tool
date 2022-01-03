@@ -3,9 +3,15 @@
 
   <div class="document">
     <app-state>
-      <document-sizer></document-sizer>
+      <document-sizer state-key="document_width"></document-sizer>
       <text-editor></text-editor>
-      <side-bar></side-bar>
+      <div class="side-bar">
+
+        <child-selector>
+          <config-panel active/>
+        </child-selector>
+
+      </div>
     </app-state>
   </div>
 </template>
@@ -16,8 +22,8 @@ import '../components/shared/Button';
 import '../components/configurator/Text';
 import '../components/configurator/AppState';
 import '../components/configurator/DocumentSizer';
-import '../components/configurator/Sidebar';
-// import "../components/configurator/ChildSelector";
+import '../components/configurator/ConfigPanel';
+import '../components/configurator/ChildSelector';
 
 // Components:
 // - a renderer that convert my custo mconfigurations into styles
@@ -32,6 +38,7 @@ export default {
 <style>
 @import "../css/global.css";
 @import "../css/fonts.css";
+@import "../css/configurator.css";
 
 @import "../css/font-combinations/font-combination-1.css";
 @import "../css/font-combinations/font-combination-2.css";
@@ -40,7 +47,4 @@ export default {
 @import "../css/font-combinations/font-combination-5.css";
 @import "../css/font-combinations/font-combination-6.css";
 
-.document {
-  padding-top: 40px;
-}
 </style>

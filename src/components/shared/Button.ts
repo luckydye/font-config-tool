@@ -27,7 +27,7 @@ export default class LinkButton extends LitElement {
             transition: transform 0.125s ease-out 0s;
             display: inline-flex;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: space-between;
             line-height: 100%;
             justify-self: flex-start;
             padding: var(--padding, 4px 10px);
@@ -36,6 +36,8 @@ export default class LinkButton extends LitElement {
             border-radius: 3px;
             border: 1px solid transparent;
             text-decoration: none;
+            width: 100%;
+            box-sizing: border-box;
         }
         .open-link:hover {
 

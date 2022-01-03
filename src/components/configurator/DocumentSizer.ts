@@ -115,7 +115,7 @@ export default class DocumentSizer extends LitElement {
         }
         this.resizing = 0;
       });
-      window.addEventListener('pointercancel', (e) => {
+      window.addEventListener('pointercancel', () => {
         if (this.resizing !== 0) {
           this.commitWidth();
         }
@@ -123,9 +123,9 @@ export default class DocumentSizer extends LitElement {
       });
     }
 
-    window.addEventListener('state:update', (e) => {
+    window.addEventListener('state:update', () => {
       const state = State.getState();
-      this.setWidth(state.document_width);
+      this.setWidth(state.document_width || this.documentWidth);
     });
   }
 

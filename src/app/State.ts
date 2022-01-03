@@ -10,6 +10,8 @@ export default class State {
 
     const ev = new Event('state:update');
     window.dispatchEvent(ev);
+
+    localStorage.setItem('app-state', JSON.stringify(state));
   }
 
   static onState(callback: (s: StateObject) => void) {

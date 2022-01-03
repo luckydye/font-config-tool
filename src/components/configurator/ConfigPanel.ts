@@ -59,11 +59,15 @@ export default class ConfigPanel extends LitElement {
     `;
   }
 
+  font: any | undefined;
+
   openFontSelector() {
     const ele = new FontSelector();
     document.body.append(ele);
     ele.addEventListener('select', (e) => {
-      console.log(e);
+      ele.close();
+      this.font = ele.value;
+      this.requestUpdate();
     });
   }
 
@@ -80,7 +84,7 @@ export default class ConfigPanel extends LitElement {
         </span>
       </div>
       <div class="container">
-        <link-button class="feature" displayIcon="list" @click="${() => this.openFontSelector()}">Font Family</link-button>
+        <link-button class="feature" displayIcon="list" @click="${() => this.openFontSelector()}">${this.font?.family || 'Sans Serif'}</link-button>
       </div>
     `;
   }

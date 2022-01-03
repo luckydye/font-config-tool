@@ -3,8 +3,6 @@ import { stringifyQuery } from '../app/utils';
 const API_KEY = 'AIzaSyAt8NOh_ZOvpyeZ2rRABxRbOsegGEmikXA';
 const apiEndpoint = 'https://www.googleapis.com/webfonts/v1/webfonts';
 
-console.log(apiEndpoint);
-
 export default class GoogleFonts {
   static fetch(options = {}) {
     const query = {

@@ -27,6 +27,18 @@ export default class AppState extends LitElement {
         });
       }
     }) as EventListener);
+
+    // handle any input event
+    this.addEventListener('input', ((e: CustomEvent) => {
+      const target = e.target as HTMLInputElement;
+      const key = target.getAttribute('state-key');
+
+      if (key != null) {
+        State.setState({
+          [key]: target.value,
+        });
+      }
+    }) as EventListener);
   }
 
   render() {

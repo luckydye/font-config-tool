@@ -1,5 +1,6 @@
 import { html, css, LitElement } from 'lit';
 import { customElement } from 'lit/decorators';
+import CanvasOverlayElement from './CanvasOverlay';
 
 @customElement('text-editor')
 export default class Text extends LitElement {
@@ -100,6 +101,7 @@ export default class Text extends LitElement {
               this.lastActiveElement = root.activeElement;
 
               console.log(this.lastActiveElement);
+              this.showUIon(this.lastActiveElement as HTMLElement);
 
               children.forEach((ele) => {
                 ele.removeAttribute('focus');
@@ -110,6 +112,28 @@ export default class Text extends LitElement {
         }
       });
     }));
+  }
+
+  uiNode: null | HTMLElement = null;
+
+  showUIon(ele: HTMLElement | null) {
+    if (ele != null) {
+      if (!this.uiNode) {
+        this.uiNode = new CanvasOverlayElement();
+        document.body.appendChild(this.uiNode);
+      }
+
+      const pos = ele.getClientRects()[0];
+      this.uiNode.style.setProperty('--x', pos.x.toString());
+      this.uiNode.style.setProperty('--y', pos.y.toString());
+      this.uiNode.style.setProperty('--h', pos.height.toString());
+    }
+
+    if (this.uiNode && ele == null) {
+      this.uiNode.remove();
+    }
+
+    console.log(this.uiNode);
   }
 
   connectedCallback(): void {

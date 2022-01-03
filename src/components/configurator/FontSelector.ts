@@ -12,11 +12,11 @@ export default class FontSelector extends LitElement {
             left: 50%;
             transform: translate(-50%, -50%);
             box-shadow: rgba(0, 0, 0, 0.05) 1px 2px 12px;
+            background: #eee;
+            border-radius: 4px;
 
             min-width: 200px;
             min-height: 100px;
-            background: #eee;
-            border-radius: 4px;
         }
 
         .close-btn {

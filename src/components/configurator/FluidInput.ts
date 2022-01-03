@@ -161,13 +161,13 @@ export default class FluidInput extends LitElement {
 
   internalSteps: number;
 
-  input: HTMLElement | null;
+  input: HTMLInputElement | undefined | null;
 
-  inputValue: HTMLInputElement | null;
+  inputValue: HTMLInputElement | undefined | null;
 
-  leftArrow: HTMLElement | null;
+  leftArrow: Element | undefined | null;
 
-  rightArrow: HTMLElement | null;
+  rightArrow: Element | undefined | null;
 
   static get observedAttributes() {
     return ['value', 'min', 'max', 'steps'];
@@ -219,8 +219,8 @@ export default class FluidInput extends LitElement {
     this.render();
 
     if (this.shadowRoot) {
-      this.input = this.shadowRoot.querySelector('.input-container');
-      this.inputValue = this.shadowRoot.querySelector('.input-value');
+      this.input = this.shadowRoot.querySelector('.input-container') as HTMLInputElement;
+      this.inputValue = this.shadowRoot.querySelector('.input-value') as HTMLInputElement;
 
       this.leftArrow = this.shadowRoot.querySelector('.left-arrow');
       this.rightArrow = this.shadowRoot.querySelector('.right-arrow');
@@ -231,8 +231,8 @@ export default class FluidInput extends LitElement {
   }
 
   registerHandlers() {
-    let startPos: number | null = null;
-    let startMovePos: number | null = null;
+    let startPos: [number, number] | null = null;
+    let startMovePos: [number, number] | null = null;
     let startValue = this.value;
     let focused = false;
 
@@ -255,31 +255,39 @@ export default class FluidInput extends LitElement {
       });
     }
 
-    const up = (e) => {
+    const up = () => {
       cancel();
     };
-    const start = (e) => {
-      if (e.x === undefined) {
-        e.x = e.touches[0].clientX;
-        e.y = e.touches[0].clientY;
+    const start = (e: TouchEvent | MouseEvent) => {
+      let x = 0;
+      let y = 0;
+
+      if (e instanceof TouchEvent) {
+        x = e.touches[0].clientX;
+        y = e.touches[0].clientY;
       }
 
       if (!focused) {
-        startPos = [e.x, e.y];
+        startPos = [x, y];
         startValue = this.value;
-        this.input.setAttribute('active', '');
+        if (this.input) {
+          this.input.setAttribute('active', '');
+        }
         e.preventDefault();
       }
     };
-    const move = (e) => {
-      if (e.x === undefined) {
-        e.x = e.touches[0].clientX;
-        e.y = e.touches[0].clientY;
+    const move = (e: TouchEvent | MouseEvent) => {
+      let x = 0;
+      let y = 0;
+
+      if (e instanceof TouchEvent) {
+        x = e.touches[0].clientX;
+        y = e.touches[0].clientY;
       }
 
       if (startPos) {
-        if (Math.abs(e.x - startPos[0]) > 10) {
-          startMovePos = [e.x, e.y];
+        if (Math.abs(x - startPos[0]) > 10) {
+          startMovePos = [x, y];
         }
       }
       if (startMovePos && startPos) {
@@ -291,7 +299,7 @@ export default class FluidInput extends LitElement {
         }
 
         // set value by absolute delta movement * scale
-        let absolute = startValue + ((e.x - startPos[0]) * scale);
+        let absolute = startValue + ((x - startPos[0]) * scale);
         // apply steps
         absolute -= (absolute % this.steps);
 
@@ -300,10 +308,19 @@ export default class FluidInput extends LitElement {
       }
     };
 
+    const cancelInput = () => {
+      this.setValue(this.value);
+      if (!this.inputValue) return;
+      this.inputValue.disabled = true;
+      focused = false;
+    };
+
     const submit = () => {
+      if (!this.inputValue) return;
+
       if (Number.isNaN(this.inputValue.value)) {
         try {
-          const evalValue = math.evaluate(this.inputValue.value);
+          const evalValue = +this.inputValue.value;
           this.setValue(evalValue);
         } catch (err) {
           console.log(err);
@@ -317,13 +334,7 @@ export default class FluidInput extends LitElement {
       }
     };
 
-    const cancelInput = () => {
-      this.setValue(this.value);
-      this.inputValue.disabled = true;
-      focused = false;
-    };
-
-    const input = (e) => {
+    const input = (e: KeyboardEvent) => {
       if (e.key === 'Enter') {
         submit();
       } else if (e.key === 'Escape') {
@@ -331,34 +342,36 @@ export default class FluidInput extends LitElement {
       }
     };
 
-    this.inputValue.addEventListener('blur', submit);
-    this.inputValue.addEventListener('keydown', input);
+    if (this.inputValue && this.input && this.rightArrow && this.leftArrow) {
+      this.inputValue.addEventListener('blur', submit);
+      this.inputValue.addEventListener('keydown', input);
 
-    // mouse
-    this.input.addEventListener('mousedown', start);
-    window.addEventListener('mousemove', move);
+      // mouse
+      this.input.addEventListener('mousedown', start);
+      window.addEventListener('mousemove', move);
 
-    // touch
-    this.input.addEventListener('touchstart', start);
-    window.addEventListener('touchmove', move);
+      // touch
+      this.input.addEventListener('touchstart', start);
+      window.addEventListener('touchmove', move);
 
-    // touch
-    window.addEventListener('touchend', up);
-    window.addEventListener('touchcancel', up);
+      // touch
+      window.addEventListener('touchend', up);
+      window.addEventListener('touchcancel', up);
 
-    // mouse
-    window.addEventListener('mouseup', up);
-    window.addEventListener('mousecancel', up);
-    window.addEventListener('mouseleave', up);
+      // mouse
+      window.addEventListener('mouseup', up);
+      window.addEventListener('mousecancel', up);
+      window.addEventListener('mouseleave', up);
 
-    this.leftArrow.addEventListener('click', (e) => {
-      this.setValue(this.value - this.steps);
-      e.preventDefault();
-    });
-    this.rightArrow.addEventListener('click', (e) => {
-      this.setValue(this.value + this.steps);
-      e.preventDefault();
-    });
+      this.leftArrow.addEventListener('click', (e) => {
+        this.setValue(this.value - this.steps);
+        e.preventDefault();
+      });
+      this.rightArrow.addEventListener('click', (e) => {
+        this.setValue(this.value + this.steps);
+        e.preventDefault();
+      });
+    }
 
     // touch
     this.addEventListener('touchstart', (e) => {
@@ -391,11 +404,11 @@ export default class FluidInput extends LitElement {
   }
 
   update() {
-    if (this.isRange) {
-      this.input.style.setProperty('--value', map(this.value, this.min, this.max, 0, 1));
+    if (this.isRange && this.input != null) {
+      this.input.style.setProperty('--value', map(this.value, this.min, this.max, 0, 1).toString());
     }
 
-    const getPrecision = (n) => {
+    const getPrecision = (n: number) => {
       const precParts = n.toString().split('.');
       const size = precParts[1] ? precParts[1].length : 0;
 
@@ -412,8 +425,10 @@ export default class FluidInput extends LitElement {
 
     const precision = valuePrecision > stepsPrecision ? stepsPrecision : valuePrecision;
 
-    this.inputValue.value = this.value.toFixed(precision);
-    this.inputValue.size = this.inputValue.value.length;
+    if (this.inputValue) {
+      this.inputValue.value = this.value.toFixed(precision);
+      this.inputValue.size = this.inputValue.value.length;
+    }
   }
 
   setValue(value: number) {

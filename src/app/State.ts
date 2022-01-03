@@ -1,18 +1,29 @@
+type StateObject = {
+  [key: string]: any
+}
+
+let state: StateObject = {};
+
 export default class State {
-  state = {};
+  static setState(newState: any) {
+    state = Object.assign(state, newState);
 
-  setState(newState: any) {
-    this.state = Object.assign(this.state, newState);
-    console.log('Set state', this.state);
+    const ev = new Event('state:update');
+    window.dispatchEvent(ev);
   }
 
-  getState() {
-    return this.state;
+  static onState(callback: (s: StateObject) => void) {
+    window.addEventListener('state:update', () => {
+      callback(State.getState());
+    });
   }
 
-  static on(callback: (e: CustomEvent) => void) {
-    document.addEventListener('state', ((e: CustomEvent) => {
-      callback(e);
-    }) as EventListener, true);
+  static getState() {
+    return state;
   }
 }
+
+declare global {
+  interface Window { State: State; }
+}
+window.State = State;

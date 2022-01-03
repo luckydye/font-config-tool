@@ -123,13 +123,14 @@ export default class DocumentSizer extends LitElement {
       });
     }
 
-    State.on((e) => {
-      this.setWidth(e.detail.document_width);
+    window.addEventListener('state:update', (e) => {
+      const state = State.getState();
+      this.setWidth(state.document_width);
     });
   }
 
   commitWidth() {
-    const ev = new CustomEvent('setstate', {
+    const ev = new CustomEvent('state', {
       bubbles: true,
       detail: {
         document_width: this.documentWidth,

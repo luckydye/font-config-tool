@@ -7,18 +7,12 @@ import State from '../../app/State';
 
 @customElement('app-state')
 export default class AppState extends LitElement {
-  state = new State();
-
   constructor() {
     super();
 
-    this.addEventListener('setstate', ((e: CustomEvent) => {
-      this.state.setState(e.detail);
-
-      const ev = new CustomEvent('state', {
-        detail: this.state.getState(),
-      });
-      this.dispatchEvent(ev);
+    this.addEventListener('state', ((e: CustomEvent) => {
+      console.log('state event', e.detail);
+      State.setState(e.detail);
     }) as EventListener);
   }
 

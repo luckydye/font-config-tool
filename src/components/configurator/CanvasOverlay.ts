@@ -10,7 +10,7 @@ export default class CanvasOverlayElement extends LitElement {
 
   fontDropDown: any;
 
-  sizeInput: any;
+  typeDropDown: any;
 
   constructor() {
     super();
@@ -23,16 +23,22 @@ export default class CanvasOverlayElement extends LitElement {
     };
 
     this.fontDropDown = new DropdownButton([
-      { name: 'Roboto', value: 'Roboto' },
-      { name: 'Open Sans', value: 'Open Sans' },
-      { name: 'Monospace', value: 'Monospace' },
+      { name: 'Font Configuration 1', value: 0 },
+      { name: 'Font Configuration 2', value: 1 },
+      { name: 'Font Configuration 3', value: 2 },
     ]);
     this.fontDropDown.addEventListener('change', () => {
       this.setData('font-family', this.fontDropDown.value.value);
     });
-    this.sizeInput = new FluidInput();
-    this.sizeInput.addEventListener('change', () => {
-      this.setData('font-size', `${this.sizeInput.value}px`);
+
+    this.typeDropDown = new DropdownButton([
+      { name: 'Heading 1', value: 0 },
+      { name: 'Heading 2', value: 1 },
+      { name: 'Heading 3', value: 2 },
+      { name: 'Paragraph', value: 2 },
+    ]);
+    this.typeDropDown.addEventListener('change', () => {
+      this.setData('font-family', this.typeDropDown.value.value);
     });
   }
 
@@ -52,16 +58,16 @@ export default class CanvasOverlayElement extends LitElement {
           --y: NaN;
           --h: 0;
 
-          position: absolute;
+          position: fixed;
           top: calc(var(--y) * 1px + var(--h) * 1px);
           left: calc(var(--x) * 1px);
           margin-top: 10px;
           pointer-events: all;
-          padding: 8px;
+          padding: 5px;
           border-radius: 4px;
-          background: rgb(33 33 33 / 0.75);
-          box-shadow: 1px 3px 8px rgb(0 0 0 / 25%);
-          border: 1px solid #252525;
+          background: rgb(215 215 215 / 75%);
+          box-shadow: 1px 3px 8px rgb(0 0 0 / 10%);
+          border: 1px solid rgb(215 215 215 / 75%);
           backdrop-filter: blur(4px);
           user-select: none;
           z-index: 100000;
@@ -69,7 +75,7 @@ export default class CanvasOverlayElement extends LitElement {
       }
       :host {
           opacity: 1;
-          animation: show .075s ease-out;
+          animation: show .15s ease;
           transition: opacity .075s ease-out,
                       transform .1s ease-out,
                       clip-path .1s ease-out,
@@ -77,20 +83,22 @@ export default class CanvasOverlayElement extends LitElement {
                       top .15s ease;
       }
       @keyframes show {
-          from {
-              clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
-          }
-          to {
-              clip-path: polygon(0 -20px, 100% 0, 100% 100%, 0% 100%);
-          }
+        from {
+          opacity: 0;
+          clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+        }
+        to {
+          clip-path: polygon(0 -20px, 100% 0, 100% 100%, 0% 100%);
+        }
       }
       @keyframes hide {
-          from {
-              clip-path: polygon(0 -20px, 100% 0, 100% 100%, 0% 100%);
-          }
-          to {
-              clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
-          }
+        from {
+          clip-path: polygon(0 -20px, 100% 0, 100% 100%, 0% 100%);
+        }
+        to {
+          clip-path: polygon(0 0, 0 0, 0 100%, 0% 100%);
+          opacity: 0;
+        }
       }
       :host([invisible]) {
           animation: hide .075s ease-out;
@@ -104,13 +112,13 @@ export default class CanvasOverlayElement extends LitElement {
           bottom: 100%;
           left: 10px;
           display: block;
-          fill: #252525;
+          fill: rgb(215 215 215 / 75%);
       }
       .container {
           display: flex;
       }
       .container > *:not(:last-child) {
-          margin-right: 10px;
+          margin-right: 5px;
       }
       svg {
           display: block;
@@ -126,8 +134,8 @@ export default class CanvasOverlayElement extends LitElement {
             </svg>
         </div>
         <div class="container">
-            ${this.fontDropDown}
-            ${this.sizeInput}
+          ${this.typeDropDown}
+          ${this.fontDropDown}
         </div>
     `;
   }

@@ -2,11 +2,12 @@ type StateObject = {
   [key: string]: any
 }
 
-let state: StateObject = {};
+const state: StateObject = {};
 
 export default class State {
-  static setState(newState: any) {
-    state = Object.assign(state, newState);
+  static setState(stateId: string, newState: any) {
+    // deep copy new state and save to global state
+    state[stateId] = Object.assign(state[stateId] || {}, JSON.parse(JSON.stringify(newState)));
 
     const ev = new Event('state:update');
     window.dispatchEvent(ev);
@@ -14,14 +15,18 @@ export default class State {
     localStorage.setItem('app-state', JSON.stringify(state));
   }
 
-  static onState(callback: (s: StateObject) => void) {
+  static onState(stateId = 'global', callback: (s: StateObject) => void) {
     window.addEventListener('state:update', () => {
-      callback(State.getState());
+      callback(State.getState(stateId));
     });
   }
 
-  static getState() {
-    return state;
+  static getState(scope = 'global') {
+    return state[scope] || {};
+  }
+
+  static getStateByType(type: string) {
+    return Object.keys(state).filter((key) => state[key].type === type).map((key) => state[key]);
   }
 }
 

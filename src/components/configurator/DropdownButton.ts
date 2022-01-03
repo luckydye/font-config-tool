@@ -20,22 +20,23 @@ export default class DropdownButton extends LitElement {
         text-transform: capitalize;
       }
 
-      :host(:focus) {
-        background: rgba(52, 52, 52, 0.75);
-      }
-
-      :host {
+      .btn {
         width: auto;
         line-height: 15px;
         cursor: pointer;
         padding: 6px 12px;
-        min-width: 100px;
+        min-width: 40px;
         border-radius: 4px;
         box-sizing: content-box;
         background: rgba(15, 15, 15, 0.5);
+        overflow: hidden;
       }
 
-      :host(:hover) {
+      .btn:focus {
+        background: rgba(52, 52, 52, 0.75);
+      }
+
+      .btn:hover {
         background: rgba(52, 52, 52, 0.75);
       }
 
@@ -44,11 +45,13 @@ export default class DropdownButton extends LitElement {
       }
 
       :host([active]) .options {
+        visibility: visible;
         animation: show .1s ease-out;
+        transition: visibility 0s 0s ease;
       }
 
       .options {
-
+        visibility: hidden;
         position: absolute;
         top: 100%;
         margin-top: 2px;
@@ -58,6 +61,7 @@ export default class DropdownButton extends LitElement {
         overflow: hidden;
         min-width: 100%;
         animation: hide .1s ease-out both;
+        transition: visibility 0s .1s ease;
       }
 
       .options span {
@@ -76,6 +80,7 @@ export default class DropdownButton extends LitElement {
 
       .value {
         position: relative;
+        padding-right: 15px;
       }
 
       .value::after {
@@ -136,7 +141,7 @@ export default class DropdownButton extends LitElement {
       this.value = opt;
       this.dispatchEvent(new Event('change'));
       this.render();
-      this.blur();
+      this.close();
     };
   }
 
@@ -148,8 +153,10 @@ export default class DropdownButton extends LitElement {
     const value = this.value ? this.value.name : els;
 
     return html`
-      <div class="value">
-        ${value}
+      <div class="btn" @click="${this.toggle}">
+        <div class="value">
+          ${value}
+        </div>
       </div>
       <div class="options">
         ${options.map((opt) => html`<span @click=${() => onSelect(opt)}>${opt.name}</span>`)}
@@ -157,17 +164,29 @@ export default class DropdownButton extends LitElement {
     `;
   }
 
+  close() {
+    this.removeAttribute('active');
+  }
+
+  open() {
+    this.setAttribute('active', '');
+  }
+
+  toggle() {
+    if (this.hasAttribute('active')) {
+      this.close();
+    } else {
+      this.open();
+    }
+  }
+
   connectedCallback() {
     super.connectedCallback();
 
     this.tabIndex = 0;
 
-    this.addEventListener('focus', () => {
-      this.setAttribute('active', '');
-    });
-
     this.addEventListener('blur', () => {
-      this.removeAttribute('active');
+      this.close();
     });
 
     if (this.options && this.options.length < 1) {

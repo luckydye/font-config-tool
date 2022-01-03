@@ -40,7 +40,7 @@ export default class FontSelector extends LitElement {
 
   select(font: Font) {
     this.value = font;
-    this.dispatchEvent(new Event('select'));
+    this.dispatchEvent(new Event('selected'));
   }
 
   render() {

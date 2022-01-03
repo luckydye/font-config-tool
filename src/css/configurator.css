@@ -86,6 +86,10 @@
   background: white;
 }
 
+.font:active {
+  background: rgb(220, 220, 220);
+}
+
 .name {
   font-size: 28px;
 }

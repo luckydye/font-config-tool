@@ -8,7 +8,9 @@
       <div class="side-bar">
 
         <child-selector>
-          <config-panel active/>
+          <app-state id="39fhjfas-f082ufjoi32-das7912" type="font-config">
+            <config-panel state-key="font-config" state-id="39fhjfas-f082ufjoi32-das7912" active/>
+          </app-state>
         </child-selector>
 
       </div>

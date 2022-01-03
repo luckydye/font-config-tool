@@ -7,38 +7,35 @@ import State from '../../app/State';
 
 @customElement('app-state')
 export default class AppState extends LitElement {
+  get stateId() {
+    return this.getAttribute('id') || 'global';
+  }
+
+  get stateType() {
+    return this.getAttribute('type') || 'global';
+  }
+
   constructor() {
     super();
 
-    // handle custom state events with data
-    this.addEventListener('state', ((e: CustomEvent) => {
-      console.log('state event', e.detail);
-      State.setState(e.detail);
-    }) as EventListener);
+    const handleEvent = ((e: CustomEvent) => {
+      const target = e.target as HTMLInputElement;
+      const key = target.getAttribute('state-key');
+
+      if (key != null) {
+        State.setState(this.stateId, {
+          type: this.stateType,
+          [key]: target.value,
+        });
+        e.cancelBubble = true;
+      }
+    }) as EventListener;
 
     // handle any change event
-    this.addEventListener('change', ((e: CustomEvent) => {
-      const target = e.target as HTMLInputElement;
-      const key = target.getAttribute('state-key');
-
-      if (key != null) {
-        State.setState({
-          [key]: target.value,
-        });
-      }
-    }) as EventListener);
+    this.addEventListener('change', handleEvent);
 
     // handle any input event
-    this.addEventListener('input', ((e: CustomEvent) => {
-      const target = e.target as HTMLInputElement;
-      const key = target.getAttribute('state-key');
-
-      if (key != null) {
-        State.setState({
-          [key]: target.value,
-        });
-      }
-    }) as EventListener);
+    this.addEventListener('input', handleEvent);
   }
 
   render() {

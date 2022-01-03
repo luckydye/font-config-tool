@@ -36,6 +36,7 @@ export default class Text extends LitElement {
         font-size: 12px;
         font-weight: normal;
         transform: translateY(-50%);
+        pointer-events: none;
       }
 
       @media screen and (min-width: 1200px) {
@@ -81,37 +82,67 @@ export default class Text extends LitElement {
   constructor() {
     super();
 
+    window.addEventListener('click', () => {
+      if (!this.contains(document.activeElement)) {
+        this.clearFocus();
+      }
+    });
+
     // eine Instanz des Observers erzeugen
     this.observer = new MutationObserver(((mutations) => {
       mutations.forEach((mutation) => {
-        console.log(mutation.type);
-
-        const root = this.shadowRoot;
-        if (root) {
-          const children = [
-            ...root.querySelectorAll('p'),
-            ...root.querySelectorAll('h1'),
-          ];
-
-          for (let i = 0; i < children.length; i += 1) {
-            const child = children[i];
-            child.setAttribute('tabindex', '0');
-
-            child.onfocus = () => {
-              this.lastActiveElement = root.activeElement;
-
-              console.log(this.lastActiveElement);
-              this.showUIon(this.lastActiveElement as HTMLElement);
-
-              children.forEach((ele) => {
-                ele.removeAttribute('focus');
-              });
-              child.setAttribute('focus', '');
-            };
+        if (mutation.type === 'childList' && (mutation.target as HTMLElement).id === 'text-container') {
+          const node = mutation.addedNodes[0];
+          if (node) {
+            this.lastActiveElement = node as Element;
+          }
+          if (this.lastActiveElement === mutation.removedNodes[0]) {
+            this.clearFocus();
           }
         }
+
+        this.updateTextChildren();
       });
     }));
+  }
+
+  clearFocus() {
+    this.lastActiveElement = null;
+    this.showUIon(null);
+    this.updateTextChildren();
+  }
+
+  updateTextChildren() {
+    const root = this.shadowRoot;
+    if (!root) return;
+
+    const children = [
+      ...root.querySelectorAll('p'),
+      ...root.querySelectorAll('h1'),
+    ];
+
+    children.forEach((ele) => {
+      ele.removeAttribute('focus');
+    });
+
+    for (let i = 0; i < children.length; i += 1) {
+      const child = children[i];
+      child.tabIndex = 0;
+
+      if (child === this.lastActiveElement) {
+        child.setAttribute('focus', '');
+        this.showUIon(this.lastActiveElement as HTMLElement);
+      }
+
+      // focus handling
+      child.onfocus = () => {
+        this.lastActiveElement = root.activeElement;
+        requestAnimationFrame(() => {
+          this.updateTextChildren();
+          this.showUIon(this.lastActiveElement as HTMLElement);
+        });
+      };
+    }
   }
 
   uiNode: null | HTMLElement = null;
@@ -120,20 +151,19 @@ export default class Text extends LitElement {
     if (ele != null) {
       if (!this.uiNode) {
         this.uiNode = new CanvasOverlayElement();
-        document.body.appendChild(this.uiNode);
+        this.appendChild(this.uiNode);
       }
 
       const pos = ele.getClientRects()[0];
       this.uiNode.style.setProperty('--x', pos.x.toString());
-      this.uiNode.style.setProperty('--y', pos.y.toString());
+      this.uiNode.style.setProperty('--y', (pos.y + 10).toString());
       this.uiNode.style.setProperty('--h', pos.height.toString());
     }
 
     if (this.uiNode && ele == null) {
       this.uiNode.remove();
+      this.uiNode = null;
     }
-
-    console.log(this.uiNode);
   }
 
   connectedCallback(): void {
@@ -163,9 +193,8 @@ export default class Text extends LitElement {
 
   render() {
     return html`
-      <div contenteditable="true" spellcheck="false" tabindex="-1">
+      <div id="text-container" contenteditable="true" spellcheck="false" tabindex="-1">
         <h1>Lorem Ipsum</h1>
-        <br>
         <p>
           Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
           invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et
@@ -176,6 +205,8 @@ export default class Text extends LitElement {
           est Lorem ipsum dolor sit amet.
         </p>
       </div>
+
+      <slot></slot>
     `;
   }
 }

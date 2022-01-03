@@ -1,6 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import { customElement } from 'lit/decorators';
 import FontSelector from './FontSelector';
+import State from '../../app/State';
 
 @customElement('config-panel')
 export default class ConfigPanel extends LitElement {
@@ -61,12 +62,34 @@ export default class ConfigPanel extends LitElement {
 
   font: any | undefined;
 
+  value = State.getState(this.stateId) || {
+    font: null,
+  };
+
+  get stateId(): string {
+    return this.getAttribute('state-id') || '';
+  }
+
+  constructor() {
+    super();
+
+    window.addEventListener('state:update', () => {
+      this.value = State.getState(this.stateId);
+      if (this.value) {
+        this.font = this.value['font-config']?.font;
+        this.requestUpdate();
+      }
+    });
+  }
+
   openFontSelector() {
     const ele = new FontSelector();
     document.body.append(ele);
-    ele.addEventListener('select', (e) => {
+    ele.addEventListener('selected', () => {
       ele.close();
       this.font = ele.value;
+      this.value.font = this.font;
+      this.dispatchEvent(new Event('change', { bubbles: true }));
       this.requestUpdate();
     });
   }

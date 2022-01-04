@@ -136,24 +136,13 @@ export default class Text extends LitElement {
   connectedCallback(): void {
     super.connectedCallback();
 
-    // zu überwachende Zielnode (target) auswählen
-
     // eigentliche Observierung starten und Zielnode und Konfiguration übergeben
     this.observer.observe(this, this.observerConfig);
-
-    this.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        /* @ts-ignore: getSelection exists tho */
-        // const selection = target.getSelection();
-      }
-    });
 
     // styles rendering
 
     const styles = document.createElement('style');
-    if (this) {
-      this.append(styles);
-    }
+    document.head.append(styles);
 
     function renderConfigs(state: any) {
       styles.innerHTML = '';
@@ -161,13 +150,17 @@ export default class Text extends LitElement {
       for (const key of Object.keys(state)) {
         if (key) {
           const config = State.getState('font-configs')[key];
+          const file = config.font?.files[Object.keys(config.font?.files)[0]];
           styles.innerHTML += `
             /*@FontFace*/
-
-            @import "${config.font?.linkUrl}";
+            @font-face {
+              font-family: ${config.font?.family};
+              src: url(${file});
+            }
 
             .font-config-${key} {
-              font-family: ${config.font?.family};
+              font-family: ${config.font?.family}, monospace;
+              font-variation-settings: 'wght' ${config['axes-wght']};
             }
           `;
         }
@@ -181,7 +174,6 @@ export default class Text extends LitElement {
 
   disconnectedCallback(): void {
     super.disconnectedCallback();
-
     this.observer.disconnect();
   }
 

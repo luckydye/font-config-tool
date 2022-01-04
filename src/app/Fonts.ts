@@ -1,15 +1,16 @@
 import GoogleFonts from '../services/GoogleFonts';
-
-interface FontFiles {
-  regular: string
-}
+import CustomFonts from './CustomFonts';
 
 export interface Font {
   family: string,
-  axes: Array<any>,
+  axes: {
+    tag: string,
+    min: number,
+    max: number,
+    defaultValue: number
+  }[],
+  files: { [key: string]: string },
   creators: Array<string>,
-  files: FontFiles,
-  linkUrl: string,
 }
 
 let fonts: Array<Font> = [];
@@ -32,8 +33,12 @@ export default class Fonts {
         axes: meta.axes,
         creators: meta.designers,
         files: font.files,
-        linkUrl: `https://fonts.googleapis.com/css2?family=${font.family}&display=optional`,
       });
+    }
+
+    // eslint-disable-next-line no-restricted-syntax
+    for (const font of CustomFonts) {
+      list.push(font);
     }
 
     fonts = list;

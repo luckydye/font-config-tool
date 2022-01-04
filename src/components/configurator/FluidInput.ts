@@ -1,6 +1,4 @@
-import {
-  html, css, LitElement, CSSResultGroup,
-} from 'lit';
+import { html, css, LitElement } from 'lit';
 import { customElement } from 'lit/decorators';
 import InputChangeEvent from './events/InputChangeEvent';
 
@@ -10,156 +8,13 @@ function map(value: number, inMin: number, inMax: number, outMin: number, outMax
 
 @customElement('fluid-input')
 export default class FluidInput extends LitElement {
-  static get styles(): CSSResultGroup | undefined {
-    return css`
-      :host {
-        display: inline-block;
-        height: 28px;
-        width: 85px;
+  internalValue = 400;
 
-        --color-input-background: #1B1B1B;
-        --color-input-hover-background: #202020;
-        --color-input-active-background: #373737;
-      }
+  internalMin = 100;
 
-      .input-container {
-          width: 100%;
-          height: 100%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          background: var(--color-input-background);
-          border-radius: 4px;
-          cursor: e-resize;
-          position: relative;
-          overflow: hidden;
-      }
+  internalMax = 600;
 
-      .input-container:before {
-          content: "";
-          position: absolute;
-          left: 0;
-          top: 0;
-          height: 100%;
-          width: calc(100% * var(--value));
-          pointer-events: none;
-          background: white;
-          opacity: 0.025;
-      }
-
-      .input-container[active]:before {
-          opacity: 0.1;
-      }
-
-      .input-container:hover {
-          background: var(--color-input-hover-background);
-      }
-
-      .input-container[active] {
-          background: var(--color-input-active-background);
-      }
-
-      .value-container {
-          white-space: nowrap;
-          height: 100%;
-      }
-
-      .input-value {
-          cursor: e-resize;
-          height: 100%;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          border: none;
-          background: transparent;
-          margin: 0 -10px;
-          width: auto;
-          padding: 0;
-          color: inherit;
-          font-family: inherit;
-          font-size: inherit;
-          text-align: center;
-      }
-
-      .input-value:focus {
-          cursor: text;
-      }
-
-      .value-suffix {
-          opacity: 0.5;
-          pointer-events: none;
-          margin-left: 2px;
-      }
-
-      .input-value:focus {
-          outline: none;
-          cursor: text;
-      }
-
-      .arrow {
-          padding: 0 6px;
-          height: 100%;
-          display: flex;
-          align-items: center;
-          cursor: pointer;
-          opacity: 0.75;
-          position: absolute;
-      }
-
-      .left-arrow {
-          left: 0;
-      }
-      .right-arrow {
-          right: 0;
-      }
-
-      .arrow:hover {
-          background: rgba(255, 255, 255, 0.05);
-      }
-
-      .arrow:active {
-          background: rgba(255, 255, 255, 0.01);
-      }
-
-      .arrow svg {
-          fill: none;
-          stroke: var(--color-text, #eee);
-          stroke-width: 1.25px;
-          stroke-linecap: round;
-      }
-    `;
-  }
-
-  render() {
-    return html`
-      <div class="input-container">
-          <span class="arrow left-arrow">
-              <svg x="0px" y="0px" width="7.3px" height="11px" viewBox="0 0 7.3 12.5">
-                  <polyline class="st0" points="6.3,1 1,6.3 6.3,11.5 "/>
-              </svg>
-          </span>
-          <span class="value-container">
-              <input class="input-value"></input>
-              ${this.suffix ? html`
-                  <span class="value-suffix">${this.suffix}</span>
-              ` : ''}
-          </span>
-          <span class="arrow right-arrow">
-              <svg x="0px" y="0px" width="7.3px" height="11px" viewBox="0 0 7.3 12.5">
-                  <polyline class="st0" points="1,11.5 6.3,6.3 1,1 "/>
-              </svg>
-          </span>
-      </div>
-    `;
-  }
-
-  internalValue: number;
-
-  internalMin: number;
-
-  internalMax: number;
-
-  internalSteps: number;
+  internalSteps = 10;
 
   input: HTMLInputElement | undefined | null;
 
@@ -169,36 +24,49 @@ export default class FluidInput extends LitElement {
 
   rightArrow: Element | undefined | null;
 
-  static get observedAttributes() {
-    return ['value', 'min', 'max', 'steps'];
+  static get properties() {
+    return {
+      value: {
+        type: Number,
+      },
+      min: {
+        type: Number,
+      },
+      max: {
+        type: Number,
+      },
+      steps: {
+        type: Number,
+      },
+    };
   }
 
   get value() { return this.internalValue; }
 
   set value(val) {
     this.internalValue = +val;
-    this.update();
+    this.updateValue();
   }
 
   get min() { return this.internalMin; }
 
   set min(val) {
     this.internalMin = +val;
-    this.update();
+    this.updateValue();
   }
 
   get max() { return this.internalMax; }
 
   set max(val) {
     this.internalMax = +val;
-    this.update();
+    this.updateValue();
   }
 
   get steps() { return this.internalSteps; }
 
   set steps(val) {
     this.internalSteps = +val;
-    this.update();
+    this.updateValue();
   }
 
   get suffix() { return this.getAttribute('suffix'); }
@@ -207,27 +75,59 @@ export default class FluidInput extends LitElement {
     return this.max || this.min;
   }
 
-  constructor() {
-    super();
+  connectedCallback(): void {
+    super.connectedCallback();
 
-    this.internalValue = 0.2;
-    this.internalMin = 0;
-    this.internalMax = 0;
-    this.internalSteps = 0.1;
+    requestAnimationFrame(() => {
+      this.input = this.shadowRoot?.querySelector('.input-container') as HTMLInputElement;
+      this.inputValue = this.shadowRoot?.querySelector('.input-value') as HTMLInputElement;
 
-    this.attachShadow({ mode: 'open' });
-    this.render();
+      this.leftArrow = this.shadowRoot?.querySelector('.left-arrow');
+      this.rightArrow = this.shadowRoot?.querySelector('.right-arrow');
 
-    if (this.shadowRoot) {
-      this.input = this.shadowRoot.querySelector('.input-container') as HTMLInputElement;
-      this.inputValue = this.shadowRoot.querySelector('.input-value') as HTMLInputElement;
+      this.registerHandlers();
+      this.updateValue();
+    });
+  }
 
-      this.leftArrow = this.shadowRoot.querySelector('.left-arrow');
-      this.rightArrow = this.shadowRoot.querySelector('.right-arrow');
+  updateValue() {
+    if (this.isRange && this.input != null) {
+      this.input.style.setProperty('--value', map(this.value, this.min, this.max, 0, 1).toString());
     }
 
-    this.registerHandlers();
-    this.update();
+    const getPrecision = (n: number) => {
+      const precParts = n.toString().split('.');
+      const size = precParts[1] ? precParts[1].length : 0;
+
+      // return 0 if precision is smaller then .000
+      if (precParts[1] && precParts[1].substring(0, 3) === '000') {
+        return 0;
+      }
+
+      return size;
+    };
+
+    const valuePrecision = getPrecision(this.value);
+    const stepsPrecision = getPrecision(this.steps);
+
+    const precision = valuePrecision > stepsPrecision ? stepsPrecision : valuePrecision;
+
+    if (this.inputValue) {
+      this.inputValue.value = this.value.toFixed(precision);
+      this.inputValue.size = this.inputValue.value.length;
+    }
+  }
+
+  setValue(value: number) {
+    const latValue = this.value;
+
+    if (this.isRange) {
+      this.value = Math.min(Math.max(value, this.min), this.max);
+    } else {
+      this.value = value;
+    }
+
+    this.dispatchEvent(new InputChangeEvent(this.value - latValue));
   }
 
   registerHandlers() {
@@ -265,6 +165,9 @@ export default class FluidInput extends LitElement {
       if (e instanceof TouchEvent) {
         x = e.touches[0].clientX;
         y = e.touches[0].clientY;
+      } else {
+        x = e.clientX;
+        y = e.clientY;
       }
 
       if (!focused) {
@@ -283,6 +186,9 @@ export default class FluidInput extends LitElement {
       if (e instanceof TouchEvent) {
         x = e.touches[0].clientX;
         y = e.touches[0].clientY;
+      } else {
+        x = e.clientX;
+        y = e.clientY;
       }
 
       if (startPos) {
@@ -295,7 +201,7 @@ export default class FluidInput extends LitElement {
         let scale = e.shiftKey ? 0.0005 : 0.005;
         // scale to min max range
         if (this.max - this.min > 0) {
-          scale *= (this.max - this.min) / 4;
+          scale *= (this.max - this.min) / 1;
         }
 
         // set value by absolute delta movement * scale
@@ -388,58 +294,147 @@ export default class FluidInput extends LitElement {
     });
   }
 
-  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-    if (name === 'value') {
-      this.setValue(+newValue);
-    }
-    if (name === 'min') {
-      this.min = +newValue;
-    }
-    if (name === 'max') {
-      this.max = +newValue;
-    }
-    if (name === 'steps') {
-      this.steps = +newValue;
-    }
-  }
+  static get styles() {
+    return css`
+      :host {
+        display: inline-block;
+        height: 28px;
+        width: 85px;
 
-  update() {
-    if (this.isRange && this.input != null) {
-      this.input.style.setProperty('--value', map(this.value, this.min, this.max, 0, 1).toString());
-    }
-
-    const getPrecision = (n: number) => {
-      const precParts = n.toString().split('.');
-      const size = precParts[1] ? precParts[1].length : 0;
-
-      // return 0 if precision is smaller then .000
-      if (precParts[1] && precParts[1].substring(0, 3) === '000') {
-        return 0;
+        --color-input-background: #c4c4c4;
+        --color-input-hover-background: #cccccc;
+        --color-input-active-background: #cccccc;
+        --value-background-color: var(--accent-color);
       }
 
-      return size;
-    };
+      .input-container {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: var(--color-input-background);
+          border-radius: 4px;
+          cursor: ew-resize;
+          position: relative;
+          overflow: hidden;
+          border: 1px solid transparent;
+      }
 
-    const valuePrecision = getPrecision(this.value);
-    const stepsPrecision = getPrecision(this.steps);
+      .input-container:before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 0;
+          height: 100%;
+          width: calc(100% * var(--value));
+          pointer-events: none;
+          background: var(--value-background-color);
+          opacity: 0.75;
+      }
 
-    const precision = valuePrecision > stepsPrecision ? stepsPrecision : valuePrecision;
+      .input-container:hover {
+          background: var(--color-input-hover-background);
+      }
 
-    if (this.inputValue) {
-      this.inputValue.value = this.value.toFixed(precision);
-      this.inputValue.size = this.inputValue.value.length;
-    }
+      .input-container[active] {
+          background: var(--color-input-active-background);
+          border-color: grey;
+      }
+
+      .value-container {
+          white-space: nowrap;
+          height: 100%;
+      }
+
+      .input-value {
+          cursor: ew-resize;
+          height: 100%;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          border: none;
+          background: transparent;
+          margin: 0 -10px;
+          width: auto;
+          padding: 0;
+          color: inherit;
+          font-family: inherit;
+          font-size: inherit;
+          text-align: center;
+          position: relative;
+          z-index: 1000;
+      }
+
+      .input-value:focus {
+          cursor: text;
+      }
+
+      .value-suffix {
+          opacity: 0.5;
+          pointer-events: none;
+          margin-left: 2px;
+      }
+
+      .input-value:focus {
+          outline: none;
+          cursor: text;
+      }
+
+      .arrow {
+          padding: 0 6px;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+          opacity: 0.75;
+          position: absolute;
+      }
+
+      .left-arrow {
+          left: 0;
+      }
+      .right-arrow {
+          right: 0;
+      }
+
+      .arrow:hover {
+          background: rgba(0, 0, 0, 0.1);
+      }
+
+      .arrow:active {
+          background: rgba(255, 255, 255, 0.25);
+      }
+
+      .arrow svg {
+          fill: none;
+          stroke: #fff;
+          stroke-width: 1.25px;
+          stroke-linecap: round;
+      }
+    `;
   }
 
-  setValue(value: number) {
-    const latValue = this.value;
-
-    if (this.isRange) {
-      this.value = Math.min(Math.max(value, this.min), this.max);
-    } else {
-      this.value = value;
-    }
-
-    this.dispatchEvent(new InputChangeEvent(this.value - latValue));
+  render() {
+    return html`
+      <div class="input-container">
+          <span class="arrow left-arrow">
+              <svg x="0px" y="0px" width="7.3px" height="11px" viewBox="0 0 7.3 12.5">
+                  <polyline class="st0" points="6.3,1 1,6.3 6.3,11.5 "/>
+              </svg>
+          </span>
+          <span class="value-container">
+              <input class="input-value"></input>
+              ${this.suffix ? html`
+                  <span class="value-suffix">${this.suffix}</span>
+              ` : ''}
+          </span>
+          <span class="arrow right-arrow">
+              <svg x="0px" y="0px" width="7.3px" height="11px" viewBox="0 0 7.3 12.5">
+                  <polyline class="st0" points="1,11.5 6.3,6.3 1,1 "/>
+              </svg>
+          </span>
+      </div>
+    `;
   }
 }

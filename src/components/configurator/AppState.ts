@@ -17,8 +17,16 @@ export default class AppState extends LitElement {
     const handleEvent = ((e: CustomEvent) => {
       const target = e.target as HTMLInputElement;
       const key = target.getAttribute('state-key');
+      const name = target.getAttribute('state-name');
 
-      if (key != null) {
+      if (name != null && key != null) {
+        const state = State.getState(this.stateType)[key];
+        state[name] = target.value;
+        State.setState(this.stateType, {
+          [key]: state,
+        });
+        e.cancelBubble = true;
+      } else if (key != null) {
         State.setState(this.stateType, {
           [key]: target.value,
         });

@@ -52,15 +52,27 @@ export default class FontSelector extends LitElement {
           <div class="container">
             <span class="title">Font</span>
             <div class="toolbar">
-              <input value="${this.filter}" state-key="font_filter" placeholder="Search Font"/>
+              <input value="${this.filter}" state-key="font_filter" placeholder="Search Font" autofocus/>
               <link-button displayIcon="file_upload">Import Font</link-button>
             </div>
 
             <div class="font-list">
               ${this.fonts.slice(0, 100).map((font) => html`
                 <div class="font" @click="${() => { this.select(font); }}">
-                  <link href="${font.linkUrl}" rel="stylesheet">
-                  <div style="font-family: '${font.family}'">
+
+                  <style>
+                    /*@FontFace*/
+                    @font-face {
+                      font-family: ${font.family};
+                      src: url(${font.files.regular});
+                    }
+
+                    .font-config-${font.family.replace(' ', '-')} {
+                      font-family: ${font.family}, monospace;
+                    }
+                  </style>
+
+                  <div style="font-family: '${font.family}'" class="font-config-${font.family.replace(' ', '-')}">
                     <span class="name">${font.family}</span>
                   </div>
                   ${font.axes.length > 0 ? html`

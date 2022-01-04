@@ -4,12 +4,6 @@ import State from '../../app/State';
 
 @customElement('side-panel')
 export default class SidePanel extends LitElement {
-  static get styles() {
-    return css`
-
-    `;
-  }
-
   constructor() {
     super();
 

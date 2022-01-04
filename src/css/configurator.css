@@ -5,10 +5,47 @@
 
 .side-bar {
   position: absolute;
-  top: 150px;
+  top: 180px;
   right: 20px;
   z-index: 10000;
 }
+
+/*  Text Rendering  */
+
+.text {
+  --default-document-width: 650px;
+
+  display: block;
+  padding-top: 20px;
+  max-width: var(--document-width, var(--default-document-width));
+  margin: auto;
+  text-align: left;
+}
+
+.text [contenteditable] {
+  outline: none;
+}
+
+.text * {
+  position: relative;
+  outline: none;
+}
+
+.text h1[focus]::after,
+.text h2[focus]::after,
+.text p[focus]::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -15px;
+  width: calc(100% + 30px);
+  height: calc(100% + 20px);
+  border: 1px solid orange;
+  border-radius: 4px;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
 
 /* Font Selector */
 
@@ -20,11 +57,11 @@
   left: 50%;
   transform: translate(-50%, -50%);
   box-shadow: rgba(0, 0, 0, 0.05) 1px 2px 12px;
-  background: #eee;
   border-radius: 4px;
-
-  width: 800px;
+  width: 900px;
   min-height: 100px;
+  background: rgb(161 161 161 / 19%);
+  backdrop-filter: blur(12px);
 }
 
 .close-btn {

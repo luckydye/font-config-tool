@@ -1,54 +1,39 @@
-import { LitElement, html, css } from 'lit';
+import {
+  LitElement, html, css, PropertyDeclarations,
+} from 'lit';
 import { customElement } from 'lit/decorators';
 import DropdownButton from './DropdownButton';
-import FluidInput from './FluidInput';
-import DataChangeEvent from './events/DataChangeEvent';
+import State from '../../app/State';
 
 @customElement('canvas-overlay-element')
 export default class CanvasOverlayElement extends LitElement {
-  data: { [key: string]: any } = {};
-
-  fontDropDown: any;
-
   typeDropDown: any;
 
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' });
 
-    this.data = {
-      'font-family': 'Roboto',
-      'font-size': '69px',
-      color: 'grey',
-    };
+    this.state();
+  }
 
-    this.fontDropDown = new DropdownButton([
-      { name: 'Font Configuration 1', value: 0 },
-      { name: 'Font Configuration 2', value: 1 },
-      { name: 'Font Configuration 3', value: 2 },
-    ]);
-    this.fontDropDown.addEventListener('change', () => {
-      this.setData('font-family', this.fontDropDown.value.value);
-    });
+  set value(val) {
+    this.typeDropDown.value = val;
+  }
 
-    this.typeDropDown = new DropdownButton([
-      { name: 'Heading 1', value: 0 },
-      { name: 'Heading 2', value: 1 },
-      { name: 'Heading 3', value: 2 },
-      { name: 'Paragraph', value: 2 },
-    ]);
+  get value() {
+    return this.typeDropDown.value;
+  }
+
+  state() {
+    const ids = State.getStateByType('font-configs');
+    const options = ids.map((key, i) => ({
+      name: State.getState('font-configs')[key].title,
+      value: key,
+    }));
+
+    this.typeDropDown = new DropdownButton(options);
     this.typeDropDown.addEventListener('change', () => {
-      this.setData('font-family', this.typeDropDown.value.value);
+      this.dispatchEvent(new Event('change', { bubbles: true }));
     });
-  }
-
-  emitDataChange(key: string) {
-    this.dispatchEvent(new DataChangeEvent(key, this.data[key]));
-  }
-
-  setData(key: string, value: any) {
-    this.data[key] = value;
-    this.emitDataChange(key);
   }
 
   static get styles() {
@@ -135,7 +120,6 @@ export default class CanvasOverlayElement extends LitElement {
         </div>
         <div class="container">
           ${this.typeDropDown}
-          ${this.fontDropDown}
         </div>
     `;
   }

@@ -7,11 +7,11 @@
       <text-editor></text-editor>
       <div class="side-bar">
 
-        <child-selector>
-          <app-state id="39fhjfas-f082ufjoi32-das7912" type="font-config">
-            <config-panel state-key="font-config" state-id="39fhjfas-f082ufjoi32-das7912" active/>
-          </app-state>
-        </child-selector>
+        <app-state type="font-configs">
+          <child-selector>
+            <config-panel v-for="item in configs" :key="item" v-bind:state-key="item"/>
+          </child-selector>
+        </app-state>
 
       </div>
     </app-state>
@@ -27,12 +27,19 @@ import '../components/configurator/DocumentSizer';
 import '../components/configurator/ConfigPanel';
 import '../components/configurator/ChildSelector';
 
+import State from '@/app/State';
+
 // Components:
 // - a renderer that convert my custo mconfigurations into styles
 // - a state manager that own all the state to easily serialize it
 
 export default {
   name: 'App',
+  data() {
+    return {
+      configs: State.getStateByType('font-configs'),
+    };
+  },
   components: {},
 };
 </script>

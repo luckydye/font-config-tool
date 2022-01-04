@@ -13,7 +13,8 @@ export default class ConfigPanel extends LitElement {
           box-shadow: rgb(0 0 0 / 5%) 1px 2px 12px;
           margin-bottom: 10px;
           border-radius: 4px;
-          background: #EEEEEE;
+          background: rgb(161 161 161 / 19%);
+          backdrop-filter: blur(5px);
         }
 
         .titlebar {
@@ -62,24 +63,28 @@ export default class ConfigPanel extends LitElement {
 
   font: any | undefined;
 
-  value = State.getState(this.stateId) || {
-    font: null,
-  };
+  value = State.getState('font-configs')[this.stateId];
 
   get stateId(): string {
-    return this.getAttribute('state-id') || '';
+    return this.getAttribute('state-key') || '';
   }
 
   constructor() {
     super();
 
     window.addEventListener('state:update', () => {
-      this.value = State.getState(this.stateId);
+      this.value = State.getState('font-configs')[this.stateId];
       if (this.value) {
-        this.font = this.value['font-config']?.font;
+        this.font = this.value.font;
         this.requestUpdate();
       }
     });
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+
+    this.dispatchEvent(new Event('change', { bubbles: true }));
   }
 
   openFontSelector() {
@@ -98,7 +103,7 @@ export default class ConfigPanel extends LitElement {
     return html`
       <div class="titlebar">
         <span class="preview">Aa</span>
-        <span class="title">Font Configuration 1</span>
+        <span class="title">${this.value.title}</span>
 
         <span class="collapse-icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="13.779" height="7.889" viewBox="0 0 13.779 7.889">

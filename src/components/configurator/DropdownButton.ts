@@ -62,12 +62,15 @@ export default class DropdownButton extends LitElement {
         min-width: 100%;
         animation: hide .1s ease-out both;
         transition: visibility 0s .1s ease;
+        text-align: left;
       }
 
       .options span {
-        padding: 5px 8px;
+        padding: 5px 10px;
         display: block;
         cursor: pointer;
+        width: max-content;
+        min-width: 100%;
       }
 
       .options span:hover {
@@ -122,12 +125,30 @@ export default class DropdownButton extends LitElement {
     };
   }
 
-  value: null | Option = null;
+  currentOption: undefined | Option = undefined;
+
+  get value(): undefined | string {
+    return this.currentOption?.value;
+  }
+
+  set value(val) {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const optn of this.options) {
+      if (optn.value === val) {
+        this.currentOption = optn;
+        this.requestUpdate();
+        break;
+      }
+    }
+  }
 
   options: Array<Option> = [];
 
   onSelect(opt: Option): void {
-    //
+    this.value = opt.value;
+    this.dispatchEvent(new Event('change', { bubbles: true }));
+    this.requestUpdate();
+    this.close();
   }
 
   constructor(optns: Array<Option> | undefined) {
@@ -136,30 +157,57 @@ export default class DropdownButton extends LitElement {
     if (optns) {
       this.options = optns;
     }
+  }
 
-    this.onSelect = (opt) => {
-      this.value = opt;
-      this.dispatchEvent(new Event('change'));
-      this.render();
+  connectedCallback() {
+    super.connectedCallback();
+
+    this.tabIndex = 0;
+
+    this.addEventListener('blur', () => {
       this.close();
-    };
+    });
+
+    // use html markup as options
+    if (this.options && this.options.length < 1) {
+      const childOptions: Array<Option> = [];
+      // eslint-disable-next-line no-restricted-syntax
+      for (const child of this.children) {
+        const name = child.getAttribute('name');
+        if (name != null) {
+          childOptions.push({
+            name,
+            value: child.getAttribute('value'),
+          });
+        }
+      }
+      this.options = childOptions;
+    }
+  }
+
+  getTitle(val: string): string | undefined {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const optn of this.options) {
+      if (optn.value === val) {
+        return optn.name;
+      }
+    }
+    return undefined;
   }
 
   render() {
     const options = this.options || [];
-    const { onSelect } = this;
 
     const els = options[0] ? options[0]?.name : 'none';
-    const value = this.value ? this.value.name : els;
 
     return html`
       <div class="btn" @click="${this.toggle}">
         <div class="value">
-          ${value}
+          ${this.value ? this.getTitle(this.value) : els}
         </div>
       </div>
       <div class="options">
-        ${options.map((opt) => html`<span @click=${() => onSelect(opt)}>${opt.name}</span>`)}
+        ${options.map((opt) => html`<span @click=${() => this.onSelect(opt)}>${opt.name}</span>`)}
       </div>
     `;
   }
@@ -177,31 +225,6 @@ export default class DropdownButton extends LitElement {
       this.close();
     } else {
       this.open();
-    }
-  }
-
-  connectedCallback() {
-    super.connectedCallback();
-
-    this.tabIndex = 0;
-
-    this.addEventListener('blur', () => {
-      this.close();
-    });
-
-    if (this.options && this.options.length < 1) {
-      const childOptions: Array<Option> = [];
-      // eslint-disable-next-line no-restricted-syntax
-      for (const child of this.children) {
-        const name = child.getAttribute('name');
-        if (name != null) {
-          childOptions.push({
-            name,
-            value: child.getAttribute('value'),
-          });
-        }
-      }
-      this.options = childOptions;
     }
   }
 }

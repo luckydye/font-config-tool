@@ -1,8 +1,10 @@
+import DefaultState from './DefaultState';
+
 type StateObject = {
   [key: string]: any
 }
 
-const state: StateObject = {};
+const state: StateObject = DefaultState;
 
 export default class State {
   static setState(stateId: string, newState: any) {
@@ -26,7 +28,7 @@ export default class State {
   }
 
   static getStateByType(type: string) {
-    return Object.keys(state).filter((key) => state[key].type === type).map((key) => state[key]);
+    return Object.keys(state[type]);
   }
 }
 

@@ -20,10 +20,19 @@ export default class DocumentSizer extends LitElement {
         .handle {
             padding: 0 5px;
             cursor: pointer;
+            border-radius: 4px;
+        }
+        .handle:hover {
+            background: #f3f3f3;
+        }
+        .handle svg {
+            fill: #c4c4c4;
         }
         .handle:active {
             background: #eee;
-            border-radius: 4px;
+        }
+        .handle:active svg {
+            fill: #333;
         }
         .handle-left {
             cursor: w-resize;
@@ -127,6 +136,8 @@ export default class DocumentSizer extends LitElement {
       const state = State.getState();
       this.setWidth(state.document_width || this.documentWidth);
     });
+
+    this.commitWidth();
   }
 
   get value() {
@@ -149,16 +160,16 @@ export default class DocumentSizer extends LitElement {
         <div class="container">
             <div class="handle handle-left">
                 <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10">
-                    <rect width="10" height="3" fill="#333" opacity="0.5"/>
-                    <path d="M5,0l5,6H0Z" transform="translate(10 10) rotate(180)" fill="#333" opacity="0.5"/>
+                    <rect width="10" height="3"/>
+                    <path d="M5,0l5,6H0Z" transform="translate(10 10) rotate(180)"/>
                 </svg>
             </div>
             <div class="scale">${this.documentWidth}px</div>
             <div class="line"></div>
             <div class="handle handle-right">
                 <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10">
-                    <rect width="10" height="3" fill="#333" opacity="0.5"/>
-                    <path d="M5,0l5,6H0Z" transform="translate(10 10) rotate(180)" fill="#333" opacity="0.5"/>
+                    <rect width="10" height="3"/>
+                    <path d="M5,0l5,6H0Z" transform="translate(10 10) rotate(180)"/>
                 </svg>
             </div>
         </div>

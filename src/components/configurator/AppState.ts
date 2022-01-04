@@ -7,10 +7,6 @@ import State from '../../app/State';
 
 @customElement('app-state')
 export default class AppState extends LitElement {
-  get stateId() {
-    return this.getAttribute('id') || 'global';
-  }
-
   get stateType() {
     return this.getAttribute('type') || 'global';
   }
@@ -23,8 +19,7 @@ export default class AppState extends LitElement {
       const key = target.getAttribute('state-key');
 
       if (key != null) {
-        State.setState(this.stateId, {
-          type: this.stateType,
+        State.setState(this.stateType, {
           [key]: target.value,
         });
         e.cancelBubble = true;

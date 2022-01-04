@@ -7,11 +7,7 @@
       <text-editor></text-editor>
       <div class="side-bar">
 
-        <app-state type="font-configs">
-          <child-selector>
-            <config-panel v-for="item in configs" :key="item" v-bind:state-key="item"/>
-          </child-selector>
-        </app-state>
+        <side-panel></side-panel>
 
       </div>
     </app-state>
@@ -26,6 +22,7 @@ import '../components/configurator/AppState';
 import '../components/configurator/DocumentSizer';
 import '../components/configurator/ConfigPanel';
 import '../components/configurator/ChildSelector';
+import '../components/configurator/SidePanel';
 
 import State from '@/app/State';
 

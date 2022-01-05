@@ -19,6 +19,8 @@ export default class LinkButton extends LitElement {
             color: black;
             --padding: 5px 10px;
             --background: var(--accent-color, #eee);
+            --content: space-between;
+            --icon-size: 20px;
             font-size: 14px;
             font-weight: 600;
         }
@@ -27,7 +29,7 @@ export default class LinkButton extends LitElement {
             transition: transform 0.125s ease-out 0s;
             display: inline-flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: var(--content, space-between);
             line-height: 100%;
             justify-self: flex-start;
             padding: var(--padding, 4px 10px);
@@ -47,12 +49,9 @@ export default class LinkButton extends LitElement {
             border-color: #CCC;
         }
         .material-icons {
-            margin: 0 5px;
             display: var(--display-icon, "inline-block");
             font-display: block;
-            font-size: 20px;
-            margin-right: -2px;
-            margin-left: 15x;
+            font-size: var(--icon-size);
         }
     `;
   }

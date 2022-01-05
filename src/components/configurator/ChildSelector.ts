@@ -11,17 +11,40 @@ export default class ChildSelector extends LitElement {
     `;
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+    this.updateChildren();
+  }
+
   activeChild = 0;
 
-  clickCallback(e: MouseEvent) {
+  value = this.activeChild;
+
+  updateChildren() {
     for (let i = 0; i < this.children.length; i += 1) {
       const child = this.children[i];
       child.removeAttribute('active');
 
-      if (e.target === child) {
+      if (i === this.activeChild) {
         child.setAttribute('active', '');
       }
     }
+  }
+
+  clickCallback(e: MouseEvent) {
+    for (let i = 0; i < this.children.length; i += 1) {
+      const child = this.children[i];
+      if (e.target === child) {
+        this.value = i;
+
+        if (this.activeChild !== i) {
+          this.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+        this.activeChild = i;
+      }
+    }
+
+    this.updateChildren();
   }
 
   render() {

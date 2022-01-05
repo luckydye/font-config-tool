@@ -21,3 +21,8 @@ export function stringifyQuery(obj: { [key: string]: string }) {
   }
   return `?${params.join('&')}`;
 }
+
+export function uid4() {
+  // @ts-ignore
+  return crypto.randomUUID();
+}

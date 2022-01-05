@@ -3,6 +3,7 @@ import { customElement } from 'lit/decorators';
 import FontSelector from './FontSelector';
 import State from '../../app/State';
 import './FluidInput';
+import './NinjaInput';
 
 const AxesTranslations: { [key: string]: string } = {
   wdth: 'Width',
@@ -48,11 +49,27 @@ export default class ConfigPanel extends LitElement {
           margin: 8px 0 2px 0;
         }
 
-        .collapse-icon {
-          transition: transform .15s ease;
+        .delete-btn {
+          --padding: 2px;
+          --background: transparent;
+          --icon-size: 16px;
+          opacity: 0.5;
+        }
+        .delete-btn:hover {
+          opacity: 0.75;
+          color: #661616;
         }
 
-        :host([active]) .collapse-icon {
+        .collapse-icon {
+          margin-left: 10px;
+          display: flex;
+        }
+
+        .collapse-icon svg {
+          transition: transform .15s ease;
+          transform-origin: 50% 50%;
+        }
+        :host([active]) .collapse-icon svg {
           transform: rotate(180deg);
         }
 
@@ -72,6 +89,31 @@ export default class ConfigPanel extends LitElement {
 
         fluid-input {
           width: 100%;
+          font-size: 12px;
+        }
+
+        .selector {
+          background: #e2e2e2;
+          display: inline-flex;
+          border-radius: 4px;
+          margin-top: 5px;
+        }
+        .selector link-button {
+          --background: #d1d1d1;
+          --padding: 2px;
+          --content: center;
+        }
+        .selector link-button:not(:last-child) {
+          margin-right: 3px;
+        }
+
+        .selector link-button[active] {
+          --background: var(--accent-color);
+        }
+
+        .grid {
+          display: grid;
+          grid-auto-flow: column;
         }
     `;
   }
@@ -115,27 +157,72 @@ export default class ConfigPanel extends LitElement {
   }
 
   render() {
+    // TODO: I could just add the state key to the <app-state> in list renderings,
+    //        I just have to give each item an app-state
     return html`
-      <div class="titlebar">
-        <span class="preview font-config-${this.stateId}">Aa</span>
-        <span class="title">${this.value.title}</span>
+      <app-state type="font-configs">
+        <div class="titlebar">
+          <span class="preview font-config-${this.stateId}">Aa</span>
+          <ninja-input state-key="${this.stateId}" state-name="title"
+                      class="title" value="${this.value.title}"></ninja-input>
 
-        <span class="collapse-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="13.779" height="7.889" viewBox="0 0 13.779 7.889">
-            <path d="M1844.64,390.485l5.475,5.475,5.475-5.475" transform="translate(1857.004 396.96) rotate(180)" fill="none"
-              stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" opacity="0.5" /></svg>
-        </span>
-      </div>
-      <div class="container">
-        <link-button class="feature" displayIcon="list" @click="${() => this.openFontSelector()}">${this.font?.family || 'Undefined'}</link-button>
+          <link-button class="delete-btn" displayIcon="delete"></link-button>
 
-        <app-state type="font-configs">
+          <span class="collapse-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="11.269" height="6.634" viewBox="0 0 11.269 6.634"><path d="M1844.64,390.485l4.22,4.22,4.22-4.22" transform="translate(-1843.226 -389.07)" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" opacity="0.5"/></svg>
+          </span>
+        </div>
+        <div class="container">
+          <link-button class="feature" displayIcon="list" @click="${() => this.openFontSelector()}">${this.font?.family || 'Undefined'}</link-button>
+
+          <div class="grid">
+            <div>
+              <div class="label">Alignment</div>
+              <child-selector class="selector"
+                state-key="${this.stateId}" state-name="format-align">
+                <link-button displayIcon="format_align_left"></link-button>
+                <link-button displayIcon="format_align_center"></link-button>
+                <link-button displayIcon="format_align_right"></link-button>
+                <link-button displayIcon="format_align_justify"></link-button>
+              </child-selector>
+            </div>
+            <div>
+              <div class="label">Transform</div>
+              <child-selector class="selector"
+                state-key="${this.stateId}" state-name="format-transform">
+                <link-button displayIcon="close" title="None"></link-button>
+                <link-button displayIcon="text_fields" title="Capitalize"></link-button>
+                <link-button displayIcon="title" title="Uppercase"></link-button>
+              </child-selector>
+            </div>
+          </div>
+
+          <div>
+            <div class="label">Decoration</div>
+            <child-selector class="selector"
+              state-key="${this.stateId}" state-name="format-decoration">
+              <link-button displayIcon="close" title="None"></link-button>
+              <link-button displayIcon="format_underlined" title="Underline"></link-button>
+              <link-button displayIcon="format_strikethrough" title="Line Through"></link-button>
+            </child-selector>
+          </div>
+
+          <div class="label">Size</div>
+          <fluid-input value="${this.value['font-size'] || 16}" min="${9}" max="${200}" steps="${(200 - 9) / 200}"
+            state-key="${this.stateId}" state-name="font-size"></fluid-input>
           <br>
 
-          ${this.font.axes.length > 0 ? html`
+          <div class="label">Italic</div>
+          <fluid-input value="${0}" min="${0}" max="${1}" steps="${1}"
+            state-key="${this.stateId}" state-name="font-italic"></fluid-input>
+          <br>
+
+          <br>
+
+          ${this.font?.axes.length > 0 ? html`
             <div class="label">Available Axes</div>
 
-            ${this.font.axes.map((ax: { tag: string, min: number, max: number, defaultValue: number }) => html`
+            ${this.font?.axes.map((ax: { tag: string, min: number, max: number, defaultValue: number }) => html`
               <div class="label">${AxesTranslations[ax.tag] || ax.tag}</div>
               <fluid-input value="${ax.defaultValue}" min="${ax.min}" max="${ax.max}" steps="${(ax.max - ax.min) / 200}"
                 state-key="${this.stateId}" state-name="axes-${ax.tag}"></fluid-input>
@@ -144,8 +231,8 @@ export default class ConfigPanel extends LitElement {
           ` : html`
             <div class="label">Not a variable font</div>
           `}
-        </app-state>
-      </div>
+        </div>
+      </app-state>
     `;
   }
 }

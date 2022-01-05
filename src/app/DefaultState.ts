@@ -18,7 +18,8 @@ export default {
         files: { regular: '../fonts/RobotoFlex[GRAD,XOPQ,XTRA,YOPQ,YTAS,YTDE,YTFI,YTLC,YTUC,opsz,slnt,wdth,wght].ttf' },
         creators: ['Google'],
       },
-      'axes-wght': 540,
+      'axes-wght': 700,
+      'font-size': 32,
     },
     '8943g934-f498jf3d42-dashi23': {
       title: 'Paragraph',
@@ -36,6 +37,7 @@ export default {
       },
       'axes-wght': 445,
       'axes-wdth': 87.75,
+      'font-size': 16,
     },
   },
 };

@@ -5,32 +5,30 @@
     <h2>Animations</h2>
 
     <h3>Bad Animations:</h3>
-    <spoiler-hint>
-      <div class="content-wrapper content-centered">
-        <div description="big and continues animation"
-            description-alt="causees layout shifts = bad perforamnce"
-          class="app-typography-headline-2 app-typography-special-animation">
-          Special Aniamtion
-        </div>
-
-        <br />
-        <br />
-
-        <h1 class="app-typography-headline-breathing"
-            description-alt="Transitioning between two weights">
-
-          <span style="animation-delay: 0s">B</span>
-          <span style="animation-delay: 0.1s">r</span>
-          <span style="animation-delay: 0.2s">e</span>
-          <span style="animation-delay: 0.3s">a</span>
-          <span style="animation-delay: 0.4s">t</span>
-          <span style="animation-delay: 0.5s">h</span>
-          <span style="animation-delay: 0.6s">i</span>
-          <span style="animation-delay: 0.7s">n</span>
-          <span style="animation-delay: 0.8s">g</span>
-        </h1>
+    <div class="content-wrapper content-centered">
+      <div description="big and continues animation"
+          description-alt="causees layout shifts = bad perforamnce"
+        class="app-typography-headline-2 app-typography-special-animation">
+        Special Aniamtion
       </div>
-    </spoiler-hint>
+
+      <br />
+      <br />
+
+      <h1 class="app-typography-headline-breathing"
+          description-alt="Transitioning between two weights">
+
+        <span style="animation-delay: 0s">B</span>
+        <span style="animation-delay: 0.1s">r</span>
+        <span style="animation-delay: 0.2s">e</span>
+        <span style="animation-delay: 0.3s">a</span>
+        <span style="animation-delay: 0.4s">t</span>
+        <span style="animation-delay: 0.5s">h</span>
+        <span style="animation-delay: 0.6s">i</span>
+        <span style="animation-delay: 0.7s">n</span>
+        <span style="animation-delay: 0.8s">g</span>
+      </h1>
+    </div>
 
     <br>
     <br>

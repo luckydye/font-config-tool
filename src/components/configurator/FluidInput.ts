@@ -298,7 +298,7 @@ export default class FluidInput extends LitElement {
     return css`
       :host {
         display: inline-block;
-        height: 28px;
+        height: 22px;
         width: 85px;
 
         --color-input-background: #c4c4c4;

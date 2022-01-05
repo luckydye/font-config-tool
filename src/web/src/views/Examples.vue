@@ -70,16 +70,7 @@
       <br>
       <br>
 
-      <div description="Smooth weight transition on hover">
-        <link-button>Test Button</link-button>
-      </div>
-
-      <br>
-      <br>
-      <br>
-      <br>
-
-      <div description="Procedually thicker font">
+      <div description="Font gets thicker on smaller screens.">
         <r-p>Responsive font size for redability on small devices.</r-p>
       </div>
 
@@ -149,7 +140,7 @@ child-selector span {
   margin: 0 2px;
   cursor: pointer;
   transition: font-variation-settings .15s ease;
-  font-family: RobotoFlex;
+  font-family: Roboto Flex;
   font-variation-settings: 'wght' 300, 'wdth' 20;
   opacity: 0.5;
   width: 80px;
@@ -177,7 +168,7 @@ slide:not([active]) {
 
 .slide {
   margin: 40px 0;
-  font-family: RobotoFlex, serif;
+  font-family: Roboto Flex, serif;
   font-variation-settings: "wght" 200, "slnt" -1;
   transition: font-variation-settings .1s ease .15s, letter-spacing .1s ease-out;
   letter-spacing: 0.1em;

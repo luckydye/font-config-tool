@@ -166,12 +166,12 @@ export default class FluidInput extends LitElement {
       let x = 0;
       let y = 0;
 
-      if (e instanceof TouchEvent) {
-        x = e.touches[0].clientX;
-        y = e.touches[0].clientY;
-      } else {
+      if (e instanceof MouseEvent) {
         x = e.clientX;
         y = e.clientY;
+      } else {
+        x = e.touches[0].clientX;
+        y = e.touches[0].clientY;
       }
 
       if (!focused) {
@@ -187,12 +187,12 @@ export default class FluidInput extends LitElement {
       let x = 0;
       let y = 0;
 
-      if (e instanceof TouchEvent) {
-        x = e.touches[0].clientX;
-        y = e.touches[0].clientY;
-      } else {
+      if (e instanceof MouseEvent) {
         x = e.clientX;
         y = e.clientY;
+      } else {
+        x = e.touches[0].clientX;
+        y = e.touches[0].clientY;
       }
 
       if (startPos) {

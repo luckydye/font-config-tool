@@ -26,6 +26,11 @@ export default class Fonts {
     const list: Array<Font> = [];
     const googleFonts = (await GoogleFonts.fetch()).items;
 
+    // eslint-disable-next-line no-restricted-syntax
+    for (const font of CustomFonts) {
+      list.push(font);
+    }
+
     for (let i = 0; i < googleFonts.length; i += 1) {
       const font = googleFonts[i];
       // eslint-disable-next-line no-await-in-loop
@@ -53,11 +58,6 @@ export default class Fonts {
         files: font.files,
         linkUrl: `https://fonts.googleapis.com/css2?family=${font.family.replace(' ', '+')}${params}&display=swap`,
       });
-    }
-
-    // eslint-disable-next-line no-restricted-syntax
-    for (const font of CustomFonts) {
-      list.push(font);
     }
 
     fonts = list;

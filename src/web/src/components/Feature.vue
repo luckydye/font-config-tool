@@ -29,32 +29,43 @@
           </div>
         </div>
       </div>
-      <div class="section-container">
+
+      <div class="section-container" style="background: #eee; padding: 80px 0;">
         <h2>Pros and Cons</h2>
 
         <div class="content-wrapper">
           <h3>Pros</h3>
           <p>
-            A single variable font  <strong>can</strong> be alot smaller and save time,
+            - A single variable font  <strong>can</strong> be alot smaller and save time,
             compared to thier fixed counter parts.
           </p>
           <p>
-            It is possible to animate/transition variable font axes.
+            - It is possible to animate/transition variable font axes.
           </p>
           <p>
-            They give designers more freedome in thier designs and make it alot simpler
+            - They give designers more freedome in thier designs and make it alot simpler
             for developers to implement,because its just a single font file.
           </p>
 
           <h3>Cons</h3>
           <p>
-            Variable font files are bigger than a single fixed font file.
+            - Variable font files are bigger than a single fixed font file.
           </p>
           <p>
-            Animation of variable fonts cause repaints and relayouts.
+            - Animation of variable fonts cause repaints and relayouts.
           </p>
         </div>
+        <br>
       </div>
+
+      <div class="section-container">
+        <h2>Configurator</h2>
+        <iframe src="/configurator.html" />
+      </div>
+
+      <router-link to="/examples">
+        <link-button>See some more Examples</link-button>
+      </router-link>
 
     </div>
   </div>
@@ -68,3 +79,11 @@ export default {
   },
 };
 </script>
+
+<style>
+iframe {
+  border: none;
+  width: 100%;
+  height: 90vh;
+}
+</style>

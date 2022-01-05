@@ -4,9 +4,6 @@
       <router-link to="/">Overview</router-link>
     </div>
     <div class="nav-item">
-      <router-link to="/configurator">Configurator</router-link>
-    </div>
-    <div class="nav-item">
       <router-link to="/examples">Examples</router-link>
     </div>
     <div class="nav-item">

@@ -76,7 +76,9 @@ export default class FontSelector extends LitElement {
                   ${font.axes.length > 0 ? html`
                     <span title="Variable Font" class="variable-indicator">✔️</span>
                   ` : ''}
-                  <span class="creators">${font.creators.join(', ')}</span>
+                  <span class="axes">Axes: </span><span class="axes">${font.axes.map(x => x.tag).join(', ')}</span>
+                  <br>
+                  <span class="creators">by ${font.creators.join(', ')}</span>
                 </div>
               `)}
             </div>

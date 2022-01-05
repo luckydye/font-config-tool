@@ -1,0 +1,25 @@
+<template>
+  <Header/>
+  <Feature/>
+
+  <footer></footer>
+</template>
+
+<script>
+import Feature from '../components/Feature.vue';
+import Header from '../components/Header.vue';
+import '../../../components/Button';
+import '../components/HeaderBackground';
+import '../../../components/ChildSelector';
+import '../components/SpoilerHint';
+import '../components/ResponsiveParagraph';
+import '../components/Slider';
+
+export default {
+  name: 'Home',
+  components: {
+    Header,
+    Feature,
+  },
+};
+</script>

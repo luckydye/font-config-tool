@@ -1,0 +1,148 @@
+.document {
+  padding-top: 40px;
+  padding-right: 140px;
+}
+
+.side-bar {
+  position: absolute;
+  top: 150px;
+  left: min(calc(100vw - 330px), 50vw + 330px);
+  z-index: 10000;
+}
+
+/*  Text Rendering  */
+
+.text {
+  --default-document-width: 650px;
+
+  display: block;
+  padding-top: 20px;
+  max-width: var(--document-width, var(--default-document-width));
+  margin: auto;
+  text-align: left;
+}
+
+.text [contenteditable] {
+  outline: none;
+}
+
+.text * {
+  position: relative;
+  outline: none;
+}
+
+.text h1[focus]::after,
+.text h2[focus]::after,
+.text p[focus]::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -15px;
+  width: calc(100% + 30px);
+  height: calc(100% + 20px);
+  border: 1px solid orange;
+  border-radius: 4px;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+
+/* Font Selector */
+
+.font-selector {
+  z-index: 100000;
+  display: absolute;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: rgba(0, 0, 0, 0.05) 1px 2px 12px;
+  border-radius: 4px;
+  width: 900px;
+  min-height: 100px;
+  background: rgb(161 161 161 / 19%);
+  backdrop-filter: blur(12px);
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: grey;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.title {
+  font-size: 12px;
+  opacity: 0.5;
+}
+
+.container {
+  padding: 20px;
+}
+
+.toolbar {
+  display: flex;
+  margin-bottom: 10px;
+  margin-top: 5px;
+}
+
+.font-list {
+  width: 500px;
+  height: 400px;
+  overflow: auto;
+}
+
+.font {
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #d4d4d4;
+  margin-bottom: 4px;
+  cursor: pointer;
+  position: relative;
+}
+
+.variable-indicator {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  line-height: 100%;
+}
+
+.creators {
+  font-size: 12px;
+}
+
+.font:hover {
+  background: white;
+}
+
+.font:active {
+  background: rgb(220, 220, 220);
+}
+
+.name {
+  font-size: 28px;
+}
+
+input {
+  width: 500px;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-bottom: 1px solid grey;
+  background: transparent;
+  outline: none;
+}
+
+input:focus {
+  border-color: var(--accent-color);
+}
+
+/* End Font Selector */

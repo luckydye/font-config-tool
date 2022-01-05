@@ -244,7 +244,7 @@ export default class ConfigPanel extends LitElement {
 
             <div>
               <div class="label">Letter Spacing</div>
-              <fluid-input value="${0}" min="${0}" max="${1}" steps="${0.01}" suffix="em"
+              <fluid-input value="${0}" min="${-1}" max="${1}" steps="${0.01}" suffix="em"
                 state-key="${this.stateId}" state-name="letter-spacing"></fluid-input>
             </div>
           </div>

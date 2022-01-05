@@ -1,7 +1,9 @@
 import GoogleFonts from '../services/GoogleFonts';
 import CustomFonts from './CustomFonts';
 
-// Because typescript guid are fkn stupid and webpack sucks d
+import opentype from 'opentype.js';
+import VariableFont from 'variablefont.js';
+// TODO: I had to modify the dependency in node_modules to export anything...
 
 export interface Font {
   family: string,
@@ -91,4 +93,48 @@ export default class Fonts {
     const f = new Font(fontSrc);
     console.log(f);
   }
+
+  // Example: "/fonts/RobotoFlex[GRAD,XOPQ,XTRA,YOPQ,YTAS,YTDE,YTFI,YTLC,YTUC,opsz,slnt,wdth,wght].ttf"
+  static async register(src: string): Promise<Font | undefined> {
+    return new Promise((resolve, reject) => {
+      opentype.load(src, function(err, font) {
+        if (err) {
+            reject(undefined);
+        } else {
+          const vf = new VariableFont(font);
+          const axes = vf.getAxes();
+
+          const family = font.names.fullName.en;
+
+          const styleBlob = new Blob([`
+            @font-face {
+              font-family: ${family};
+              src: url(${src});
+            }
+          `], { type: "text/css" });
+          const blobUrl = URL.createObjectURL(styleBlob);
+
+          const fontObject = {
+            family: family,
+            creators: [ font.names.designer.en ],
+            files: { regular: src },
+            linkUrl: blobUrl,
+            axes: axes.map((xs) => ({
+              tag: xs.tag,
+              min: xs.minValue,
+              max: xs.maxValue,
+              defaultValue: xs.defaultValue,
+            }))
+          };
+
+          fonts.push(fontObject);
+          console.log(fonts);
+
+          resolve(fontObject);
+        }
+      });
+    });
+  }
 }
+
+window.Fonts = Fonts;

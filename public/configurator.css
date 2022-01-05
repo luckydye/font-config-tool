@@ -140,8 +140,13 @@
   font-size: 28px;
 }
 
-input {
-  width: 500px;
+.font-selector link-button {
+  margin-left: 20px;
+  flex: none;
+}
+
+.font-selector input {
+  width: 100%;
   padding: 12px;
   font-size: 16px;
   border: none;
@@ -150,7 +155,7 @@ input {
   outline: none;
 }
 
-input:focus {
+.font-selector input:focus {
   border-color: var(--accent-color);
 }
 

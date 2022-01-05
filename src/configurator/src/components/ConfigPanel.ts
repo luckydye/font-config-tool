@@ -19,6 +19,8 @@ const AxesTranslations: { [key: string]: string } = {
   XTRA: 'XTRA (x transparent)',
   XOPQ: 'XOPQ (x opaque)',
   GRAD: 'GRAD (Grade)',
+  ital: 'ital (Italic)',
+  CNTR: 'CNTR (Contrast)'
 };
 
 @customElement('config-panel')
@@ -31,8 +33,8 @@ export default class ConfigPanel extends LitElement {
           box-shadow: rgb(0 0 0 / 5%) 1px 2px 12px;
           margin-bottom: 10px;
           border-radius: 4px;
-          background: rgb(161 161 161 / 19%);
-          backdrop-filter: blur(5px);
+          background: rgb(225 225 225 / 76%);
+          backdrop-filter: blur(8px);
           font-family: sans-serif;
         }
 

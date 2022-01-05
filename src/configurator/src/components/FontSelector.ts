@@ -43,6 +43,26 @@ export default class FontSelector extends LitElement {
     this.dispatchEvent(new Event('selected'));
   }
 
+  openImportFontDialog() {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.onchange = async () => {
+      try {
+        const file = input.files ? input.files[0] : null;
+        if(file) {
+          const buffer = await file.arrayBuffer();
+          const blob = new Blob([ buffer ]);
+          const url = URL.createObjectURL(blob);
+          const font = await Fonts.register(url);
+          console.log(font);
+        }
+      } catch(err) {
+        console.error(err);
+      }
+    }
+    input.click();
+  }
+
   render() {
     return html`
       <div class="font-selector">
@@ -53,7 +73,7 @@ export default class FontSelector extends LitElement {
             <span class="title">Font</span>
             <div class="toolbar">
               <input value="${this.filter}" state-key="font_filter" placeholder="Search Font" autofocus/>
-              <!-- <link-button displayIcon="file_upload">Import Font</link-button> -->
+              <link-button @click="${() => this.openImportFontDialog()}" displayIcon="file_upload">Import Font</link-button>
             </div>
 
             <div class="font-list">

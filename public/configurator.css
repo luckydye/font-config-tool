@@ -1,3 +1,7 @@
+:root {
+  --accent-color: #EEAA43;
+}
+
 .document {
   padding-top: 40px;
   padding-right: 140px;
@@ -5,7 +9,7 @@
 
 .side-bar {
   position: absolute;
-  top: 150px;
+  top: 70px;
   left: min(calc(100vw - 330px), 50vw + 330px);
   z-index: 10000;
 }
@@ -50,15 +54,15 @@
 /* Font Selector */
 
 .font-selector {
+  font-family: sans-serif;
   z-index: 100000;
   display: absolute;
   position: fixed;
-  top: 50%;
+  top: calc(50% - 80px);
   left: 50%;
   transform: translate(-50%, -50%);
   box-shadow: rgba(0, 0, 0, 0.05) 1px 2px 12px;
   border-radius: 4px;
-  width: 900px;
   min-height: 100px;
   background: rgb(161 161 161 / 19%);
   backdrop-filter: blur(12px);

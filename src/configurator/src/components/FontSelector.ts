@@ -53,11 +53,13 @@ export default class FontSelector extends LitElement {
             <span class="title">Font</span>
             <div class="toolbar">
               <input value="${this.filter}" state-key="font_filter" placeholder="Search Font" autofocus/>
-              <link-button displayIcon="file_upload">Import Font</link-button>
+              <!-- <link-button displayIcon="file_upload">Import Font</link-button> -->
             </div>
 
             <div class="font-list">
-              ${this.fonts.slice(0, 100).map((font) => html`
+              ${this.fonts.filter(font => {
+                return font.axes.length > 0;
+              }).map((font) => html`
                 <div class="font" @click="${() => { this.select(font); }}">
 
                   <link rel="stylesheet" href="${font.linkUrl}"/>

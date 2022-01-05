@@ -302,7 +302,7 @@ export default class FluidInput extends LitElement {
     return css`
       :host {
         display: inline-block;
-        height: 22px;
+        height: 20px;
         width: 85px;
 
         --color-input-background: #c4c4c4;
@@ -377,7 +377,7 @@ export default class FluidInput extends LitElement {
       .value-suffix {
           opacity: 0.5;
           pointer-events: none;
-          margin-left: 2px;
+          margin-left: 8px;
       }
 
       .input-value:focus {

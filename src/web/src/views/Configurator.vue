@@ -20,9 +20,10 @@ export default {
 iframe {
   border: none;
   width: 100%;
-  height: 100%;
+  height: calc(100% - 80px);
   position: absolute;
-  top: 0;
+  top: 80px;
   left: 0;
+  bottom: 0;
 }
 </style>

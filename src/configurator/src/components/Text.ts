@@ -2,7 +2,7 @@ import { html, css, LitElement } from 'lit';
 import { customElement } from 'lit/decorators';
 import CanvasOverlayElement from './CanvasOverlay';
 import State from '../app/State';
-import Fonts from '@/app/Fonts';
+import Fonts from '../app/Fonts';
 
 @customElement('text-editor')
 export default class Text extends LitElement {
@@ -212,7 +212,7 @@ export default class Text extends LitElement {
 
           // eslint-disable-next-line no-restricted-syntax
           for (const axe of font?.axes || []) {
-            const val = config[`axes-${axe.tag}`] || font?.axes.find((xs: any) => xs.tag === 'wdth')?.defaultValue;
+            const val = config[`axes-${axe.tag}`] || font?.axes.find((xs: any) => xs.tag === axe.tag)?.defaultValue;
             variationSettings.push(`'${axe.tag}' ${val}`);
           }
 
@@ -225,6 +225,8 @@ export default class Text extends LitElement {
               text-decoration: ${textDeco};
               font-style: ${italic > 0 ? 'italic' : 'normal'};
               font-variation-settings: ${variationSettings.join(', ')};
+              line-height: ${config['line-height']};
+              letter-spacing: ${config['letter-spacing']}em;
             }
           `;
         }

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
+    "target": "ES2018",
+    "module": "ESNext",
     "strict": true,
     "jsx": "preserve",
     "importHelpers": true,
@@ -22,7 +22,7 @@
       ]
     },
     "lib": [
-      "esnext",
+      "ES2018",
       "dom",
       "dom.iterable",
       "scripthost"
@@ -37,5 +37,5 @@
   ],
   "exclude": [
     "node_modules"
-  ]
+  ],
 }

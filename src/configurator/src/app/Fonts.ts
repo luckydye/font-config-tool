@@ -1,19 +1,7 @@
-import { Font as LibFont } from 'lib-font';
 import GoogleFonts from '../services/GoogleFonts';
 import CustomFonts from './CustomFonts';
 
 // Because typescript guid are fkn stupid and webpack sucks d
-
-const fo = new LibFont('Roboto Flex');
-fo.onerror = (evt) => console.error(evt);
-fo.onload = (evt) => {
-  console.log('Loaded Font!');
-  console.log(evt);
-};
-
-fo.src = '/fonts/RobotoFlex[GRAD,XOPQ,XTRA,YOPQ,YTAS,YTDE,YTFI,YTLC,YTUC,opsz,slnt,wdth,wght].ttf';
-
-console.log(fo);
 
 export interface Font {
   family: string,
@@ -93,7 +81,7 @@ export default class Fonts {
 
   static async metadata(): Promise<Array<any>> {
     if (metadata.length > 0) return metadata;
-    return fetch('/font-registry.json').then((res) => res.json()).then((data) => {
+    return fetch('/fonts/font-registry.json').then((res) => res.json()).then((data) => {
       metadata = data.familyMetadataList;
       return metadata;
     });

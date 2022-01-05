@@ -6,8 +6,19 @@ import './FluidInput';
 import './NinjaInput';
 
 const AxesTranslations: { [key: string]: string } = {
-  wdth: 'Width',
-  wght: 'Weight',
+  wdth: 'wdth (Width)',
+  wght: 'wght (Weight)',
+  slnt: 'slnt (Slant)',
+  opsz: 'opsz (Optical Size)',
+  YTUC: 'YTUC (y transparent uppercase)',
+  YTLC: 'YTLC (y transparent lowercase)',
+  YTFI: 'YTFI (y transparent figures)',
+  YTDE: 'YTDE (y transparent descender)',
+  YTAS: 'YTAS (y transparent ascender)',
+  YOPQ: 'YOPQ (y opaque)',
+  XTRA: 'XTRA (x transparent)',
+  XOPQ: 'XOPQ (x opaque)',
+  GRAD: 'GRAD (Grade)',
 };
 
 @customElement('config-panel')
@@ -46,6 +57,7 @@ export default class ConfigPanel extends LitElement {
         }
 
         .label {
+          opacity: 0.5;
           font-size: 12px;
           margin: 8px 0 2px 0;
         }
@@ -115,6 +127,7 @@ export default class ConfigPanel extends LitElement {
         }
 
         .grid {
+          gap: 10px;
           display: grid;
           grid-auto-flow: column;
         }
@@ -217,8 +230,22 @@ export default class ConfigPanel extends LitElement {
 
           <div class="label">Size</div>
           <fluid-input value="${this.value['font-size'] || 16}" min="${9}" max="${120}" steps="${(200 - 9) / 200}"
-            state-key="${this.stateId}" state-name="font-size"></fluid-input>
+            state-key="${this.stateId}" state-name="font-size" suffix="px"></fluid-input>
           <br>
+
+          <div class="grid">
+            <div>
+              <div class="label">Line Height</div>
+              <fluid-input value="${1}" min="${0}" max="${4}" steps="${0.1}" suffix="em"
+                state-key="${this.stateId}" state-name="line-height"></fluid-input>
+            </div>
+
+            <div>
+              <div class="label">Letter Spacing</div>
+              <fluid-input value="${0}" min="${0}" max="${1}" steps="${0.01}" suffix="em"
+                state-key="${this.stateId}" state-name="letter-spacing"></fluid-input>
+            </div>
+          </div>
 
           <div class="label">Italic</div>
           <fluid-input value="${0}" min="${0}" max="${1}" steps="${1}"
@@ -232,7 +259,7 @@ export default class ConfigPanel extends LitElement {
 
             ${this.font?.axes.map((ax: { tag: string, min: number, max: number, defaultValue: number }) => html`
               <div class="label">${AxesTranslations[ax.tag] || ax.tag}</div>
-              <fluid-input value="${ax.defaultValue}" min="${ax.min}" max="${ax.max}" steps="${(ax.max - ax.min) / 200}"
+              <fluid-input value="${this.value[`axes-${ax.tag}`] || ax.defaultValue}" min="${ax.min}" max="${ax.max}" steps="${(ax.max - ax.min) / 200}"
                 state-key="${this.stateId}" state-name="axes-${ax.tag}"></fluid-input>
               <br>
             `)}

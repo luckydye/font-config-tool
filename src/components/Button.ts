@@ -10,7 +10,7 @@ export default class LinkButton extends LitElement {
   href: string | undefined;
 
   @property({ type: String })
-  displayIcon: string;
+  displayIcon = 'arrow_right_alt';
 
   static get styles() {
     return css`
@@ -56,10 +56,18 @@ export default class LinkButton extends LitElement {
     `;
   }
 
-  constructor() {
-    super();
+  connectedCallback(): void {
+    super.connectedCallback();
+    this.addEventListener('click', this.onClick);
+  }
 
-    this.displayIcon = 'arrow_right_alt';
+  disconnectedCallback(): void {
+    super.disconnectedCallback();
+    this.removeEventListener('click', this.onClick);
+  }
+
+  onClick(e: Event) {
+    // nothing
   }
 
   render() {

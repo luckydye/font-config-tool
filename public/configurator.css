@@ -10,7 +10,7 @@
 .side-bar {
   position: absolute;
   top: 70px;
-  left: min(calc(100vw - 330px), 50vw + 330px);
+  left: min(calc(100vw - 500px), 50vw + 500px);
   z-index: 10000;
 }
 
@@ -162,3 +162,53 @@
 }
 
 /* End Font Selector */
+
+/* Menu Bar */
+
+.menubar {
+  z-index: 10000;
+  position: absolute;
+  left: 12vw;
+  top: 80px;
+}
+
+.menubar action-button {
+  --background: rgb(245, 245, 245);
+  --padding: 8px;
+  line-height: 100%;
+  position: relative;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.menubar action-button:hover {
+  --background: #eee;
+}
+
+.menubar action-button[tooltip]:hover::after {
+  opacity: 0.9;
+  transform: translate(0px, -50%);
+}
+
+.menubar action-button[tooltip]::after {
+  content: attr(tooltip);
+  z-index: 10000;
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  transform: translate(-10px, -50%);
+  margin-left: 8px;
+  padding: 4px 6px;
+  border-radius: 3px;
+  background: #eee;
+  color: #333;
+  white-space: nowrap;
+  font-family: sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  opacity: 0;
+  pointer-events: none;
+  backdrop-filter: blur(12px);
+  transition: opacity .1s .1s ease,
+              transform .1s .1s ease;
+}

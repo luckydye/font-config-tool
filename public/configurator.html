@@ -18,12 +18,19 @@
 
       <div class="document">
         <app-state>
+          <div class="menubar">
+            <action-button tooltip="Import Local Font" 
+                          displayicon="upload_file" 
+                          action="tool.uploadfont"></action-button>
+
+            <action-button tooltip="Reset" 
+                          displayicon="restart_alt" 
+                          action="tool.reset"></action-button>
+          </div>
           <document-sizer state-key="document_width"></document-sizer>
           <text-editor></text-editor>
           <div class="side-bar">
-
             <side-panel></side-panel>
-
           </div>
         </app-state>
       </div>

@@ -4,7 +4,7 @@ type StateObject = {
   [key: string]: any
 }
 
-const state: StateObject = DefaultState;
+let state: StateObject = JSON.parse(JSON.stringify(DefaultState));
 
 export default class State {
   static setState(stateId: string, newState: any) {
@@ -36,6 +36,14 @@ export default class State {
 
   static getStateByType(type: string) {
     return Object.keys(state[type]);
+  }
+
+  static reset() {
+    state = JSON.parse(JSON.stringify(DefaultState));
+    const ev = new Event('state:update');
+    window.dispatchEvent(ev);
+    localStorage.setItem('app-state', JSON.stringify(state));
+    console.log(state);
   }
 }
 

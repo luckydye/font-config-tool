@@ -1,4 +1,4 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html, css, PropertyDeclarations } from 'lit';
 import { customElement } from 'lit/decorators';
 
 @customElement('child-selector')
@@ -9,6 +9,14 @@ export default class ChildSelector extends LitElement {
             display: block;
         }
     `;
+  }
+
+  static get properties() {
+    return {
+      activeChild: {
+        type: Number
+      }
+    }
   }
 
   connectedCallback() {

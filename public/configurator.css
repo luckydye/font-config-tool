@@ -2,15 +2,19 @@
   --accent-color: #EEAA43;
 }
 
+body {
+  font-family: sans-serif;
+}
+
 .document {
   padding-top: 40px;
-  padding-right: 140px;
+  padding-right: 40px;
 }
 
 .side-bar {
   position: absolute;
-  top: 70px;
-  left: min(calc(100vw - 500px), 50vw + 500px);
+  top: 50px;
+  left: calc(100vw - 330px);
   z-index: 10000;
 }
 

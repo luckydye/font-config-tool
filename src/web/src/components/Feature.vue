@@ -4,6 +4,11 @@
       <div>
         <h2>Variation</h2>
 
+        <p>
+          Variable Fonts are a great tool to bring more variation to fonts <br>without loading
+          Megabytes of Font files.
+        </p>
+
         <div class="section-container">
           <br>
           <div class="content-wrapper font-combination-1">
@@ -17,8 +22,6 @@
           <br>
           <br>
           <br>
-          <br>
-          <br>
           <div class="content-wrapper font-combination-6">
             <h3 description="font: Inter-Variable.ttf">Some Headline</h3>
             <p description="font: Inter-Variable.ttf">
@@ -27,6 +30,8 @@
               sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
             </p>
           </div>
+          <br>
+          <br>
         </div>
       </div>
 

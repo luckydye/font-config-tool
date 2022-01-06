@@ -49,6 +49,12 @@
         target="_blank"
         href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Fonts/Variable_Fonts_Guide"
         >MDN Variable Fonts Guide</a
+      ><br /><br />
+       <a
+        target="_blank"
+        description-alt="Very detailed font inspector"
+        href="https://www.axis-praxis.org/samsa/"
+        >https://www.axis-praxis.org/samsa/</a
       >
     </div>
   </div>

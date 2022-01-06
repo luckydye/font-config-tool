@@ -3,41 +3,99 @@
 
   <div class="section-container">
     <h2>Animations</h2>
+    <br>
 
-    <h3>Bad Animations:</h3>
-    <div class="content-wrapper content-centered">
-      <div description="big and continues animation"
-          description-alt="causees layout shifts = bad perforamnce"
-        class="app-typography-headline-2 app-typography-special-animation">
-        Special Aniamtion
+    <div class="columns">
+
+      <div>
+        <h3>Bad Animations:</h3>
+        <div class="content-wrapper content-centered">
+          <div class="app-typography-headline-2 app-typography-special-animation">
+            Special Aniamtion
+          </div>
+
+          <br />
+          <br />
+
+          <h1 class="app-typography-headline-breathing">
+
+            <span style="animation-delay: 0s">B</span>
+            <span style="animation-delay: 0.1s">r</span>
+            <span style="animation-delay: 0.2s">e</span>
+            <span style="animation-delay: 0.3s">a</span>
+            <span style="animation-delay: 0.4s">t</span>
+            <span style="animation-delay: 0.5s">h</span>
+            <span style="animation-delay: 0.6s">i</span>
+            <span style="animation-delay: 0.7s">n</span>
+            <span style="animation-delay: 0.8s">g</span>
+          </h1>
+        </div>
+
+        <br>
+        <br>
+
       </div>
 
-      <br />
-      <br />
+      <div class="backdrop">
+        <br>
+        <br>
+        <br>
+        <p>
+          Big and continues animations cause continues layoutshift.
+          They are not good for performance and drain battery faster.
+        </p>
+        <br>
+        <br>
 
-      <h1 class="app-typography-headline-breathing"
-          description-alt="Transitioning between two weights">
+        <p>
+          Preferably use minimal frame animations for slide-in/slide-out aniamtions etc.
+          Running continues animations while the user interacts with the page may cause a
+          worse user experience especially on mobile.
+        </p>
 
-        <span style="animation-delay: 0s">B</span>
-        <span style="animation-delay: 0.1s">r</span>
-        <span style="animation-delay: 0.2s">e</span>
-        <span style="animation-delay: 0.3s">a</span>
-        <span style="animation-delay: 0.4s">t</span>
-        <span style="animation-delay: 0.5s">h</span>
-        <span style="animation-delay: 0.6s">i</span>
-        <span style="animation-delay: 0.7s">n</span>
-        <span style="animation-delay: 0.8s">g</span>
-      </h1>
+      </div>
+
     </div>
 
-    <br>
+  </div>
+
+  <div class="section-container">
+    <h2>File Sizes</h2>
     <br>
 
-    <h3>Good Animations:</h3>
+    <div class="columns">
 
-    <div class="content-wrapper">
-      <p>Minimum frame animations for slide-in/slide-out aniamtions etc.
-        Dont run continues animations while the user interacts with the page.</p>
+      <div>
+        <br>
+        <p>
+          By using a variable font, a website will load fonts faster, since they can be smaller.
+        </p>
+
+        <pre>
+            Inter-Regular.ttf               (293 KB)
+            Inter-Light.ttf                 (288 KB)
+            Inter-Bold.ttf                  (293 KB)
+            Inter-SemiBold.ttf              (293 KB)
+
+                                            (1,2 MB)
+        </pre>
+      </div>
+
+      <div class="backdrop content-centered">
+        <p>
+          The variable fonts contains all of the static varaitions in one file.
+          <br>
+          <br>
+        </p>
+        <pre>
+Inter-VariableFont_slnt,wght.ttf (803 KB)
+<br><br>
+                                  (803 KB)
+        </pre>
+        <br>
+        <br>
+      </div>
+
     </div>
 
   </div>
@@ -119,6 +177,21 @@ export default {
 @import "../css/font-combinations/font-combination-4.css";
 @import "../css/font-combinations/font-combination-5.css";
 @import "../css/font-combinations/font-combination-6.css";
+
+.columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 80px;
+  max-width: 1200px;
+  margin: auto;
+  text-align: left;
+}
+
+.backdrop {
+  background: #eee;
+  padding: 20px;
+  border-radius: 3px;
+}
 
 .app-typography-hover {
     font-size: 18px;

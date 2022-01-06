@@ -6,21 +6,21 @@ import './FluidInput';
 import './NinjaInput';
 
 const AxesTranslations: { [key: string]: string } = {
-  wdth: 'wdth (Width)',
-  wght: 'wght (Weight)',
-  slnt: 'slnt (Slant)',
-  opsz: 'opsz (Optical Size)',
-  YTUC: 'YTUC (y transparent uppercase)',
-  YTLC: 'YTLC (y transparent lowercase)',
-  YTFI: 'YTFI (y transparent figures)',
-  YTDE: 'YTDE (y transparent descender)',
-  YTAS: 'YTAS (y transparent ascender)',
-  YOPQ: 'YOPQ (y opaque)',
-  XTRA: 'XTRA (x transparent)',
-  XOPQ: 'XOPQ (x opaque)',
-  GRAD: 'GRAD (Grade)',
-  ital: 'ital (Italic)',
-  CNTR: 'CNTR (Contrast)'
+  wdth: 'Width (wdth)',
+  wght: 'Weight (wght)',
+  slnt: 'Slant (slnt)',
+  opsz: 'Optical Size (opsz)',
+  YTUC: 'y transparent uppercase (YTUC)',
+  YTLC: 'y transparent lowercase (YTLC)',
+  YTFI: 'y transparent figures (YTFI)',
+  YTDE: 'y transparent descender (YTDE)',
+  YTAS: 'y transparent ascender (YTAS)',
+  YOPQ: 'y opaque (YOPQ)',
+  XTRA: 'x transparent (XTRA)',
+  XOPQ: 'x opaque (XOPQ)',
+  GRAD: 'Grade (GRAD)',
+  ital: 'Italic (ital)',
+  CNTR: 'Contras (CNTRt)'
 };
 
 @customElement('config-panel')
@@ -62,6 +62,7 @@ export default class ConfigPanel extends LitElement {
           opacity: 0.5;
           font-size: 12px;
           margin: 8px 0 2px 0;
+          text-transform: capitalize;
         }
 
         .delete-btn {
@@ -119,6 +120,11 @@ export default class ConfigPanel extends LitElement {
           --background: #d1d1d1;
           --padding: 2px;
           --content: center;
+          color: #333;
+        }
+        .selector link-button:hover {
+          --background: #d6d6d6;
+          color: #000;
         }
         .selector link-button:not(:last-child) {
           margin-right: 3px;
@@ -181,6 +187,7 @@ export default class ConfigPanel extends LitElement {
   render() {
     // TODO: I could just add the state key to the <app-state> in list renderings,
     //        I just have to give each item an app-state
+
     return html`
       <app-state type="font-configs">
         <div class="titlebar">
@@ -201,7 +208,7 @@ export default class ConfigPanel extends LitElement {
           <div class="grid">
             <div>
               <div class="label">Alignment</div>
-              <child-selector class="selector"
+              <child-selector class="selector" activeChild="${this.value['format-align']}"
                 state-key="${this.stateId}" state-name="format-align">
                 <link-button displayIcon="format_align_left"></link-button>
                 <link-button displayIcon="format_align_center"></link-button>
@@ -211,7 +218,7 @@ export default class ConfigPanel extends LitElement {
             </div>
             <div>
               <div class="label">Transform</div>
-              <child-selector class="selector"
+              <child-selector class="selector" activeChild="${this.value['format-transform']}"
                 state-key="${this.stateId}" state-name="format-transform">
                 <link-button displayIcon="close" title="None"></link-button>
                 <link-button displayIcon="text_fields" title="Capitalize"></link-button>
@@ -222,7 +229,7 @@ export default class ConfigPanel extends LitElement {
 
           <div>
             <div class="label">Decoration</div>
-            <child-selector class="selector"
+            <child-selector class="selector" activeChild="${this.value['format-decoration']}"
               state-key="${this.stateId}" state-name="format-decoration">
               <link-button displayIcon="close" title="None"></link-button>
               <link-button displayIcon="format_underlined" title="Underline"></link-button>

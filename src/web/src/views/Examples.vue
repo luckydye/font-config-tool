@@ -93,6 +93,87 @@ Inter-VariableFont_slnt,wght.ttf (803 KB)
   </div>
 
   <div class="section-container">
+    <h2>Example Use-Cases</h2>
+    <br />
+
+    <div class="content-centered">
+      <h1
+        class="app-typography-hover"
+        description-alt="Transition to Bold + slant on hover"
+      >
+        Testing typo hover effect
+      </h1>
+
+      <br />
+      <br />
+      <br />
+
+      <div description="Smooth selection target highlight">
+        <child-selector>
+          <span active>Item 1</span>
+          <span>Item 2</span>
+          <span>Item 3</span>
+          <span>Item 4</span>
+        </child-selector>
+      </div>
+
+      <br />
+      <br />
+      <br />
+      <br />
+
+      <div description="Font gets thicker on smaller screens.">
+        <r-p>Responsive font size for redability on small devices.</r-p>
+      </div>
+
+      <br />
+      <br />
+      <br />
+      <br />
+
+      <p>Slider Caption animation.</p>
+
+      <sample-sldier>
+        <slide>
+          <img src="/images/_MG_0240.jpg" />
+          <div class="caption">London Tube</div>
+        </slide>
+        <slide>
+          <img src="/images/_MG_0132.jpg" />
+          <div class="caption">At vero eos</div>
+        </slide>
+        <slide>
+          <img src="/images/_MG_0439.jpg" />
+          <div class="caption">Stet clita kasd</div>
+        </slide>
+      </sample-sldier>
+
+      <br />
+      <br />
+      <br />
+      <br />
+
+      <p>Heavy Fonts. (All included within this variable font.)</p>
+
+      <div style="position: relative">
+        <span class="floating-text type1">Light Font</span>
+        <span class="floating-text type2">Regular Sized Font</span>
+        <span class="floating-text type3">Bold Font</span>
+        <span class="floating-text type4">Extra Bold Font</span>
+        <span class="floating-text type5">THE BOLDEST</span>
+        <br /><br /><br /><br /><br /><br /><br /><br />
+        <br /><br /><br /><br /><br /><br /><br /><br />
+        <br /><br /><br /><br /><br /><br /><br /><br />
+      </div>
+
+      <br />
+      <br />
+      <br />
+      <br />
+    </div>
+  </div>
+
+  <div class="section-container">
     <h2>Code Samples</h2>
     <br />
 
@@ -138,72 +219,54 @@ Inter-VariableFont_slnt,wght.ttf (803 KB)
           <a href="https://codepen.io">CodePen</a>.</span
         >
       </p>
-    </div>
-  </div>
 
-  <div class="section-container">
-    <h2>Example Use-Cases</h2>
-    <br />
+      <br />
+      <br />
+      <br />
+      <br />
 
-    <div class="content-centered">
-      <h1
-        class="app-typography-hover"
-        description-alt="Transition to Bold + slant on hover"
+      <p>Per Character animations</p>
+
+      <p
+        class="codepen"
+        data-height="500"
+        data-theme-id="light"
+        data-default-tab="css,result"
+        data-slug-hash="KKXBpev"
+        data-editable="true"
+        data-user="luckydye"
       >
-        Testing typo hover effect
-      </h1>
-
-      <br />
-      <br />
-      <br />
-
-      <div description="Smooth selection target highlight">
-        <child-selector>
-          <span active>Item 1</span>
-          <span>Item 2</span>
-          <span>Item 3</span>
-          <span>Item 4</span>
-        </child-selector>
-      </div>
-
-      <br />
-      <br />
-      <br />
-      <br />
-
-      <div description="Font gets thicker on smaller screens.">
-        <r-p>Responsive font size for redability on small devices.</r-p>
-      </div>
-
-      <br />
-      <br />
-      <br />
-      <br />
-
-      <p>
-        Slider Caption animation.
+        <span
+          >See the Pen
+          <a href="https://codepen.io/luckydye/pen/KKXBpev"> Untitled</a> by
+          luckydye (<a href="https://codepen.io/luckydye">@luckydye</a>) on
+          <a href="https://codepen.io">CodePen</a>.</span
+        >
       </p>
 
-      <sample-sldier>
-        <slide>
-          <img
-            src="/images/_MG_0240.jpg"
-          />
-          <div class="caption">London Tube</div>
-        </slide>
-        <slide>
-          <img
-            src="/images/_MG_0132.jpg"
-          />
-          <div class="caption">At vero eos</div>
-        </slide>
-        <slide>
-          <img
-            src="/images/_MG_0439.jpg"
-          />
-          <div class="caption">Stet clita kasd</div>
-        </slide>
-      </sample-sldier>
+      <br />
+      <br />
+      <br />
+      <br />
+
+      <p>Weight animation + 3D transform</p>
+
+      <p
+        class="codepen"
+        data-height="600"
+        data-theme-id="light"
+        data-default-tab="css,result"
+        data-slug-hash="QWqBjMx"
+        data-editable="true"
+        data-user="luckydye"
+      >
+        <span
+          >See the Pen
+          <a href="https://codepen.io/luckydye/pen/QWqBjMx"> Untitled</a> by
+          luckydye (<a href="https://codepen.io/luckydye">@luckydye</a>) on
+          <a href="https://codepen.io">CodePen</a>.</span
+        >
+      </p>
     </div>
   </div>
 
@@ -230,6 +293,41 @@ export default {
 @import "../css/font-combinations/font-combination-4.css";
 @import "../css/font-combinations/font-combination-5.css";
 @import "../css/font-combinations/font-combination-6.css";
+
+.floating-text {
+  position: absolute;
+  font-family: Roboto Flex, serif;
+}
+.floating-text.type1 {
+  top: 140px;
+  left: calc(50% - 400px);
+  font-size: 100px;
+  font-variation-settings: "wght" 100;
+}
+.floating-text.type2 {
+  top: 108px;
+  left: calc(50% - 380px);
+  font-size: 42px;
+  font-variation-settings: "wght" 400;
+}
+.floating-text.type3 {
+  top: 90px;
+  left: calc(50% - 10px);
+  font-size: 152px;
+  font-variation-settings: "wght" 600;
+}
+.floating-text.type4 {
+  top: 0;
+  left: calc(50% - 273px);
+  font-size: 100px;
+  font-variation-settings: "wght" 800;
+}
+.floating-text.type5 {
+  top: 230px;
+  left: calc(50% - 603px);
+  font-size: 190px;
+  font-variation-settings: "wght" 1000;
+}
 
 .columns {
   display: grid;
@@ -315,9 +413,8 @@ slide img {
   margin: 40px 0;
   font-family: Roboto Flex, serif;
   font-size: 100px;
-  transition: opacity 1s ease .3s,
-              transform 1.5s ease .3s,
-              font-variation-settings 1.5s ease-out;
+  transition: opacity 1s ease 0.3s, transform 1.5s ease 0.3s,
+    font-variation-settings 1.5s ease-out;
   font-variation-settings: "wght" 300;
   transform-origin: 0 0;
   transform: perspective(50vw) translate(calc(-1 * 20px), 0) scale(1);

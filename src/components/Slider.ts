@@ -64,6 +64,8 @@ export default class SampleSlider extends LitElement {
     this.lastActiveChild = this.activeChild;
     this.activeChild = Math.max(Math.min(index, this.children.length - 1), 0);
     this.updateSlide();
+
+    this.dispatchEvent(new Event('change', { bubbles: true }));
   }
 
   static get styles() {

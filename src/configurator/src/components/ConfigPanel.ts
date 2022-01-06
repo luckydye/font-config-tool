@@ -208,7 +208,7 @@ export default class ConfigPanel extends LitElement {
           <div class="grid">
             <div>
               <div class="label">Alignment</div>
-              <child-selector class="selector" activeChild="${this.value['format-align']}"
+              <child-selector class="selector" activechild="${this.value['format-align']}"
                 state-key="${this.stateId}" state-name="format-align">
                 <link-button displayIcon="format_align_left"></link-button>
                 <link-button displayIcon="format_align_center"></link-button>
@@ -218,7 +218,7 @@ export default class ConfigPanel extends LitElement {
             </div>
             <div>
               <div class="label">Transform</div>
-              <child-selector class="selector" activeChild="${this.value['format-transform']}"
+              <child-selector class="selector" activechild="${this.value['format-transform']}"
                 state-key="${this.stateId}" state-name="format-transform">
                 <link-button displayIcon="close" title="None"></link-button>
                 <link-button displayIcon="text_fields" title="Capitalize"></link-button>
@@ -229,7 +229,7 @@ export default class ConfigPanel extends LitElement {
 
           <div>
             <div class="label">Decoration</div>
-            <child-selector class="selector" activeChild="${this.value['format-decoration']}"
+            <child-selector class="selector" activechild="${this.value['format-decoration']}"
               state-key="${this.stateId}" state-name="format-decoration">
               <link-button displayIcon="close" title="None"></link-button>
               <link-button displayIcon="format_underlined" title="Underline"></link-button>

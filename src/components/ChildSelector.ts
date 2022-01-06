@@ -13,7 +13,7 @@ export default class ChildSelector extends LitElement {
 
   static get properties() {
     return {
-      activeChild: {
+      activechild: {
         type: Number
       }
     }
@@ -24,16 +24,20 @@ export default class ChildSelector extends LitElement {
     this.updateChildren();
   }
 
-  activeChild = 0;
+  activechild = 0;
 
-  value = this.activeChild;
+  value = this.activechild;
+
+  updated(): void {
+    this.updateChildren();
+  }
 
   updateChildren() {
     for (let i = 0; i < this.children.length; i += 1) {
       const child = this.children[i];
       child.removeAttribute('active');
 
-      if (i === this.activeChild) {
+      if (i === this.activechild) {
         child.setAttribute('active', '');
       }
     }
@@ -45,10 +49,10 @@ export default class ChildSelector extends LitElement {
       if (e.target === child) {
         this.value = i;
 
-        if (this.activeChild !== i) {
+        if (this.activechild !== i) {
           this.dispatchEvent(new Event('change', { bubbles: true }));
         }
-        this.activeChild = i;
+        this.activechild = i;
       }
     }
 

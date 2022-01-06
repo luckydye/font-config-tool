@@ -13,7 +13,6 @@ import '../components/HeaderBackground';
 import '../../../components/ChildSelector';
 import '../components/SpoilerHint';
 import '../components/ResponsiveParagraph';
-import '../components/Slider';
 
 export default {
   name: 'Home',

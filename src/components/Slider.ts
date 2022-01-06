@@ -33,10 +33,15 @@ export default class SampleSlider extends LitElement {
       }
     }
 
+    const slides = this.shadowRoot?.querySelector('.slides') as HTMLElement;
+
     // reset transition animation
-    setTimeout(() => {
-      this.removeAttribute('transitioning');
-    }, 330); // <--- transition time from css transition
+    if(slides) {
+      slides.onanimationend = () => {
+        this.removeAttribute('transitioning');
+        slides.onanimationend = null;
+      }
+    }
 
     // update template
     this.requestUpdate();
@@ -71,12 +76,12 @@ export default class SampleSlider extends LitElement {
         }
         .slides {
           display: flex;
-          transition: transform .33s ease;
+          transition: transform 3s cubic-bezier(0.67, 0.05, 0.18, 0.97) 0s;
           transform: translateX(calc(var(--pos) * -1));
         }
 
         :host([transitioning]) .slides {
-          animation: slide .3s ease;
+          animation: slide 0.5s cubic-bezier(0.67, 0.05, 0.18, 0.97);
         }
 
         @keyframes slide {

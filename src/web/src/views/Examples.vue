@@ -3,14 +3,14 @@
 
   <div class="section-container">
     <h2>Animations</h2>
-    <br>
+    <br />
 
     <div class="columns">
-
       <div>
-        <h3>Bad Animations:</h3>
         <div class="content-wrapper content-centered">
-          <div class="app-typography-headline-2 app-typography-special-animation">
+          <div
+            class="app-typography-headline-2 app-typography-special-animation"
+          >
             Special Aniamtion
           </div>
 
@@ -18,7 +18,6 @@
           <br />
 
           <h1 class="app-typography-headline-breathing">
-
             <span style="animation-delay: 0s">B</span>
             <span style="animation-delay: 0.1s">r</span>
             <span style="animation-delay: 0.2s">e</span>
@@ -31,44 +30,39 @@
           </h1>
         </div>
 
-        <br>
-        <br>
-
+        <br />
+        <br />
       </div>
 
       <div class="backdrop">
-        <br>
-        <br>
-        <br>
+        <br />
         <p>
           Big and continues animations cause continues layoutshift.
+          <br />
           They are not good for performance and drain battery faster.
         </p>
-        <br>
-        <br>
+        <br />
+        <br />
 
         <p>
-          Preferably use minimal frame animations for slide-in/slide-out aniamtions etc.
-          Running continues animations while the user interacts with the page may cause a
-          worse user experience especially on mobile.
+          Preferably use minimal frame animations for slide-in/slide-out
+          aniamtions etc. Running continues animations while the user interacts
+          with the page may cause a worse user experience especially on mobile.
         </p>
-
       </div>
-
     </div>
-
   </div>
 
   <div class="section-container">
     <h2>File Sizes</h2>
-    <br>
+    <br />
 
     <div class="columns">
-
       <div>
-        <br>
+        <br />
         <p>
-          By using a variable font, a website will load fonts faster, since they can be smaller.
+          By using a variable font, a website will load fonts faster, since they
+          can be smaller.
         </p>
 
         <pre>
@@ -84,35 +78,84 @@
       <div class="backdrop content-centered">
         <p>
           The variable fonts contains all of the static varaitions in one file.
-          <br>
-          <br>
+          <br />
+          <br />
         </p>
         <pre>
 Inter-VariableFont_slnt,wght.ttf (803 KB)
 <br><br>
                                   (803 KB)
         </pre>
-        <br>
-        <br>
+        <br />
+        <br />
       </div>
-
     </div>
+  </div>
 
+  <div class="section-container">
+    <h2>Code Samples</h2>
+    <br />
+
+    <div class="backdrop">
+      <p>CSS for Variable Font Axes:</p>
+      <br />
+      <p
+        class="codepen"
+        data-height="400"
+        data-theme-id="light"
+        data-default-tab="css,result"
+        data-slug-hash="BawPBWo"
+        data-editable="true"
+        data-user="luckydye"
+      >
+        <span
+          >See the Pen
+          <a href="https://codepen.io/luckydye/pen/BawPBWo"> Untitled</a> by
+          luckydye (<a href="https://codepen.io/luckydye">@luckydye</a>) on
+          <a href="https://codepen.io">CodePen</a>.</span
+        >
+      </p>
+
+      <br />
+      <br />
+
+      <p>Using CSS variables for ease of use:</p>
+      <br />
+
+      <p
+        class="codepen"
+        data-height="400"
+        data-theme-id="light"
+        data-default-tab="css,result"
+        data-slug-hash="XWeBrPP"
+        data-editable="true"
+        data-user="luckydye"
+      >
+        <span
+          >See the Pen
+          <a href="https://codepen.io/luckydye/pen/XWeBrPP"> Untitled</a> by
+          luckydye (<a href="https://codepen.io/luckydye">@luckydye</a>) on
+          <a href="https://codepen.io">CodePen</a>.</span
+        >
+      </p>
+    </div>
   </div>
 
   <div class="section-container">
     <h2>Example Use-Cases</h2>
     <br />
 
-    <div class="content-wrapper content-centered">
-      <h1 class="app-typography-hover"
-        description-alt="Transition to Bold + slant on hover">
+    <div class="content-centered">
+      <h1
+        class="app-typography-hover"
+        description-alt="Transition to Bold + slant on hover"
+      >
         Testing typo hover effect
       </h1>
 
-      <br>
-      <br>
-      <br>
+      <br />
+      <br />
+      <br />
 
       <div description="Smooth selection target highlight">
         <child-selector>
@@ -123,34 +166,44 @@ Inter-VariableFont_slnt,wght.ttf (803 KB)
         </child-selector>
       </div>
 
-      <br>
-      <br>
-      <br>
-      <br>
+      <br />
+      <br />
+      <br />
+      <br />
 
       <div description="Font gets thicker on smaller screens.">
         <r-p>Responsive font size for redability on small devices.</r-p>
       </div>
 
-      <br>
-      <br>
-      <br>
-      <br>
+      <br />
+      <br />
+      <br />
+      <br />
 
-      <div description="Slide animation"></div>
+      <p>
+        Slider Caption animation.
+      </p>
 
       <sample-sldier>
         <slide>
-          <div class="slide">Lorem ipsum</div>
+          <img
+            src="/images/_MG_0240.jpg"
+          />
+          <div class="caption">London Tube</div>
         </slide>
         <slide>
-          <div class="slide">At vero eos</div>
+          <img
+            src="/images/_MG_0132.jpg"
+          />
+          <div class="caption">At vero eos</div>
         </slide>
         <slide>
-          <div class="slide">Stet clita kasd </div>
+          <img
+            src="/images/_MG_0439.jpg"
+          />
+          <div class="caption">Stet clita kasd</div>
         </slide>
       </sample-sldier>
-
     </div>
   </div>
 
@@ -161,7 +214,7 @@ Inter-VariableFont_slnt,wght.ttf (803 KB)
 import '../components/HeaderBackground';
 import '../components/SpoilerHint';
 import '../components/ResponsiveParagraph';
-import '../components/Slider';
+import '../../../components/Slider';
 
 export default {
   name: 'Examples',
@@ -194,17 +247,18 @@ export default {
 }
 
 .app-typography-hover {
-    font-size: 18px;
-    text-transform: uppercase;
-    cursor: pointer;
-    font-variation-settings: 'wght' 500, 'slnt' 0;
-    transition: font-variation-settings .125s ease-out, letter-spacing .125s ease-out;
-    letter-spacing: 0.04em;
+  font-size: 18px;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-variation-settings: "wght" 500, "slnt" 0;
+  transition: font-variation-settings 0.125s ease-out,
+    letter-spacing 0.125s ease-out;
+  letter-spacing: 0.04em;
 }
 
 .app-typography-hover:hover {
-    font-variation-settings: 'wght' 800, 'slnt' -4;
-    letter-spacing: 0.032em;
+  font-variation-settings: "wght" 800, "slnt" -4;
+  letter-spacing: 0.032em;
 }
 
 child-selector span {
@@ -212,9 +266,9 @@ child-selector span {
   display: inline-block;
   margin: 0 2px;
   cursor: pointer;
-  transition: font-variation-settings .15s ease;
+  transition: font-variation-settings 0.15s ease;
   font-family: Roboto Flex;
-  font-variation-settings: 'wght' 300, 'wdth' 20;
+  font-variation-settings: "wght" 300, "wdth" 20;
   opacity: 0.5;
   width: 80px;
 }
@@ -222,49 +276,81 @@ child-selector span:hover {
   opacity: 1;
 }
 child-selector span[active] {
-  font-variation-settings: 'wght' 800, 'wdth' 100;
+  font-variation-settings: "wght" 800, "wdth" 100;
   opacity: 1;
+}
+
+sample-sldier {
+  overflow: hidden;
 }
 
 slide {
   min-width: 100%;
+  height: 500px;
   display: block;
   font-size: 28px;
-  transition: opacity .2s ease .1s;
+  transition: opacity 0.2s ease 0.1s;
+  position: relative;
 }
 
 slide:not([active]) {
-  opacity: 0;
+  opacity: 1;
   pointer-events: none;
-  transition: opacity .2s ease;
+  transition: opacity 0.2s ease;
 }
 
-.slide {
+slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.caption {
+  mix-blend-mode: difference;
+  text-shadow: 1px 2px 24px rgb(0 0 0 / 90%);
+  position: absolute;
+  left: calc(50% - 500px);
+  bottom: 20px;
+  color: #eee;
   margin: 40px 0;
   font-family: Roboto Flex, serif;
-  font-variation-settings: "wght" 200, "slnt" -1;
-  transition: font-variation-settings .1s ease .15s, letter-spacing .1s ease-out;
-  letter-spacing: 0.1em;
+  font-size: 100px;
+  transition: opacity 1s ease .3s,
+              transform 1.5s ease .3s,
+              font-variation-settings 1.5s ease-out;
+  font-variation-settings: "wght" 300;
+  transform-origin: 0 0;
+  transform: perspective(50vw) translate(calc(-1 * 20px), 0) scale(1);
+  opacity: 0;
 }
 
-[transitioning] slide {
-  animation: slide .3s ease;
+slide[active] .caption {
+  transform: perspective(50vw) translate(0px, 0) scale(1);
+  opacity: 1;
+  font-variation-settings: "wght" 600;
+}
+
+/* [transitioning] slide {
+  animation: slide 2s ease both;
 }
 
 @keyframes slide {
   0% {
-    transform: scale(1);
-  }
-  25% {
-    transform: scale(0.69);
+    --weight: 200;
   }
   100% {
-    transform: scale(1);
+    --weight: 600;
   }
-}
+} */
 
-slide[active] .slide {
-  font-variation-settings: "wght" 600, "slnt" 0;
-  letter-spacing: 0.01em;
+.codepen {
+  height: 300px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid;
+  margin: 1em 0;
+  padding: 1em;
 }
 </style>

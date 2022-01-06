@@ -41,8 +41,8 @@
         <div class="content-wrapper">
           <h3>Pros</h3>
           <p>
-            - A single variable font  <strong>can</strong> be alot smaller and save time,
-            compared to thier fixed counter parts.
+            - A single variable font can be alot smaller and save time,
+            compared to thier fixed counter parts and are simpler to implement.
           </p>
           <p>
             - It is possible to animate/transition variable font axes.
@@ -85,7 +85,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 iframe {
   border: none;
   width: 100%;

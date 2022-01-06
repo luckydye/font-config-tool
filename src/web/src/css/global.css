@@ -5,6 +5,7 @@
 body {
     margin: 0;
     overflow: overlay;
+    overflow-x: hidden;
 }
 
 h3 {

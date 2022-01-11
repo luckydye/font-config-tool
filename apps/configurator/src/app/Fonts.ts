@@ -83,7 +83,7 @@ export default class Fonts {
 
   static async metadata(): Promise<Array<any>> {
     if (metadata.length > 0) return metadata;
-    return fetch('./fonts/font-registry.json').then((res) => res.json()).then((data) => {
+    return fetch('./font-registry.json').then((res) => res.json()).then((data) => {
       metadata = data.familyMetadataList;
       return metadata;
     });

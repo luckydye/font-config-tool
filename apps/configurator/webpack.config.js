@@ -1,4 +1,17 @@
 const path = require('path');
+const fs = require('fs');
+
+if(!fs.existsSync(path.resolve('../../dist')))
+  fs.mkdirSync(path.resolve('../../dist'));
+
+fs.copyFileSync(path.resolve('./configurator.css'),
+  path.resolve('../../dist/configurator.css'));
+
+fs.copyFileSync(path.resolve('./configurator.html'),
+  path.resolve('../../dist/configurator.html'));
+
+fs.copyFileSync(path.resolve('./font-registry.json'),
+  path.resolve('../../dist/font-registry.json'));
 
 module.exports = {
   mode: 'development',

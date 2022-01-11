@@ -277,7 +277,7 @@ Inter-VariableFont_slnt,wght.ttf (803 KB)
 import '../components/HeaderBackground';
 import '../components/SpoilerHint';
 import '../components/ResponsiveParagraph';
-import '../../../components/Slider';
+import 'ui/components/Slider';
 
 export default {
   name: 'Examples',

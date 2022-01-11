@@ -86,7 +86,7 @@ export default [
       regular: '../fonts/RobotoFlex[GRAD,XOPQ,XTRA,YOPQ,YTAS,YTDE,YTFI,YTLC,YTUC,opsz,slnt,wdth,wght].ttf',
     },
     creators: ['Google'],
-    linkUrl: '/fonts/RobotoFlex.css',
+    linkUrl: './fonts/RobotoFlex.css',
   },
 
   // {

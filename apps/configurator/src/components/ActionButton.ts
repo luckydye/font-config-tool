@@ -1,4 +1,4 @@
-import LinkButton from "../../../components/Button";
+import LinkButton from "ui/components/Button";
 import { Action } from "../app/Action";
 import { customElement, property } from 'lit/decorators';
 

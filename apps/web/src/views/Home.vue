@@ -8,9 +8,9 @@
 <script>
 import Feature from '../components/Feature.vue';
 import Header from '../components/Header.vue';
-import '../../../components/Button';
+import 'ui/components/Button';
 import '../components/HeaderBackground';
-import '../../../components/ChildSelector';
+import 'ui/components/ChildSelector';
 import '../components/SpoilerHint';
 import '../components/ResponsiveParagraph';
 

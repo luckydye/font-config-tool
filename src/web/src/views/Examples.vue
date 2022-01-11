@@ -244,6 +244,11 @@ Inter-VariableFont_slnt,wght.ttf (803 KB)
         >
       </p>
 
+      <p>
+        For aniamtions on each single Character, font-variation settings like weight,
+        dont look very nice, since the letter width changes with the weight.
+      </p>
+
       <br />
       <br />
       <br />

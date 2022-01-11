@@ -5,15 +5,16 @@
   "scripts": {
     "serve": "vue-cli-service serve ./src/web/src/main.ts",
     "build": "vue-cli-service build ./src/web/src/main.ts",
-    "build:configurator": "webpack build -c ./src/configurator/webpack.config.js",
-    "build:configurator:w": "webpack watch -c ./src/configurator/webpack.config.js",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "build:configurator": "vite",
+    "build:configurator:w": "vite build"
   },
   "dependencies": {
     "core-js": "^3.6.5",
     "lit": "^2.0.2",
     "opentype.js": "^1.3.4",
     "variablefont.js": "^0.0.0",
+    "vite": "^2.7.10",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0"
   },

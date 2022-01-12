@@ -1,7 +1,9 @@
 import GoogleFonts from '../services/GoogleFonts';
 import CustomFonts from './CustomFonts';
 
+//@ts-ignore
 import opentype from 'opentype.js';
+//@ts-ignore
 import VariableFont from 'variablefont.js';
 // TODO: I had to modify the dependency in node_modules to export anything...
 
@@ -99,14 +101,13 @@ export default class Fonts {
   }
 
   static getInfo(fontSrc: string) {
-    const f = new Font(fontSrc);
-    console.log(f);
+    console.log(new VariableFont(fontSrc));
   }
 
   // Example: "/fonts/RobotoFlex[GRAD,XOPQ,XTRA,YOPQ,YTAS,YTDE,YTFI,YTLC,YTUC,opsz,slnt,wdth,wght].ttf"
   static async register(src: string): Promise<Font | undefined> {
     return new Promise((resolve, reject) => {
-      opentype.load(src, function(err, font) {
+      opentype.load(src, function(err: Error, font: VariableFont) {
         if (err) {
             reject(undefined);
         } else {
@@ -128,7 +129,7 @@ export default class Fonts {
             creators: [ font.names.designer.en ],
             files: { regular: src },
             linkUrl: blobUrl,
-            axes: axes.map((xs) => ({
+            axes: axes.map((xs: any) => ({
               tag: xs.tag,
               min: xs.minValue,
               max: xs.maxValue,
@@ -146,4 +147,5 @@ export default class Fonts {
   }
 }
 
+// @ts-ignore
 window.Fonts = Fonts;

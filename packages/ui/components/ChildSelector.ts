@@ -1,4 +1,4 @@
-import { LitElement, html, css, PropertyDeclarations } from 'lit';
+import { LitElement, html, css } from 'lit';
 import { customElement } from 'lit/decorators';
 
 @customElement('child-selector')

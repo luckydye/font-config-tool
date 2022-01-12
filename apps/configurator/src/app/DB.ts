@@ -1,10 +1,10 @@
-let db;
-const readyCallbacks = [];
+let db: any;
+const readyCallbacks: Function[] = [];
 
 // Store Imported Font Files
 
 export default class DB {
-  static onReady(callback) {
+  static onReady(callback: Function) {
     if (!db) {
       readyCallbacks.push(callback);
     } else {
@@ -17,20 +17,21 @@ export default class DB {
     request.onerror = (e) => {
       console.error(e);
     };
-    request.onsuccess = (e) => {
-      db = e.target.result;
+    request.onsuccess = () => {
+      db = request.result;
 
       readyCallbacks.forEach((callback) => callback());
     };
-    request.onupgradeneeded = (e) => {
-      const db = e.target.result;
+    request.onupgradeneeded = () => {
+      const db = request.result;
       if (!db.objectStoreNames.contains('filerefs')) {
         const objectStore = db.createObjectStore('filerefs', { keyPath: 'id' });
       }
     };
   }
 
-  static async openFileChooser(options) {
+  static async openFileChooser(options: object) {
+    // @ts-ignore
     const [file_ref] = await self.showOpenFilePicker(options);
 
     if (file_ref) {
@@ -42,7 +43,7 @@ export default class DB {
         preview: null,
         file: file_ref,
       });
-      request.onerror = (e) => {
+      request.onerror = (e: any) => {
         console.error(e);
       };
     }
@@ -50,30 +51,30 @@ export default class DB {
     return file_ref;
   }
 
-  static async saveFilePreview(fileId, previewImage) {
+  static async saveFilePreview(fileId: string, previewImage: string) {
     const transaction = db.transaction(['filerefs'], 'readonly');
     const request = transaction.objectStore('filerefs').get(fileId);
-    request.onsuccess = async (e) => {
+    request.onsuccess = async () => {
       const data = request.result;
       data.preview = previewImage;
 
       const transaction = db.transaction(['filerefs'], 'readwrite');
       const request2 = transaction.objectStore('filerefs').put(data);
-      request2.onerror = (e) => {
+      request2.onerror = (e: any) => {
         console.error(e);
       };
     };
   }
 
-  static async getFilePreview(fileId) {
+  static async getFilePreview(fileId: string) {
     return new Promise((resolve, reject) => {
       const transaction = db.transaction(['filerefs'], 'readonly');
       const request = transaction.objectStore('filerefs').get(fileId);
-      request.onsuccess = async (e) => {
+      request.onsuccess = async () => {
         const data = request.result;
         resolve(data.preview);
       };
-      request.onerror = (err) => reject(err);
+      request.onerror = (err: Error) => reject(err);
     });
   }
 
@@ -81,8 +82,8 @@ export default class DB {
     return new Promise((resolve, reject) => {
       const transaction = db.transaction(['filerefs'], 'readwrite');
       const request = transaction.objectStore('filerefs').getAll();
-      request.onsuccess = () => resolve(event.target.result);
-      request.onerror = (e) => {
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = (e: any) => {
         console.error(e);
         reject();
       };
@@ -99,7 +100,7 @@ export default class DB {
 
         const transaction = db.transaction(['filerefs'], 'readwrite');
         const request2 = transaction.objectStore('filerefs').put(data);
-        request2.onerror = (e) => {
+        request2.onerror = (e: any) => {
           console.error(e);
           reject();
         };
@@ -120,7 +121,7 @@ export default class DB {
       const transaction = db.transaction(['filerefs'], 'readwrite');
       const request = transaction.objectStore('filerefs').delete(file_id);
       request.onsuccess = async () => {
-        resolve();
+        resolve(1);
       };
       request.onerror = async () => {
         reject();

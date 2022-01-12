@@ -266,11 +266,13 @@ export class Action {
      * @returns {Array} array of gamepads
      */
     static handleGamepad(e: GamepadEvent, connected: boolean) {
-        const gamepad = e.gamepad;
+        const gamepad: Gamepad = e.gamepad;
 
         if (connected) {
             // gamepad connected
+            // @ts-ignore
             if (gamepad.vibrationActuator) {
+                // @ts-ignore
                 gamepad.vibrationActuator.playEffect("dual-rumble", {
                     startDelay: 0,
                     duration: 20,
@@ -649,8 +651,8 @@ window.addEventListener('load', e => (Action.runInputLoop ? Action.inputLoop() :
 window.addEventListener("keydown", e => Action.handleKey(e, true));
 window.addEventListener("keyup", e => Action.handleKey(e, false));
 
-window.addEventListener('gamepadconnected', e => Action.handleGamepad(e, true));
-window.addEventListener('gamepaddisconnected', e => Action.handleGamepad(e, false));
+window.addEventListener('gamepadconnected', e => Action.handleGamepad(e as GamepadEvent, true));
+window.addEventListener('gamepaddisconnected', e => Action.handleGamepad(e as GamepadEvent, false));
 
 window.addEventListener('pointerdown', e => Action.handlePointerInput(e));
 window.addEventListener('pointerup', e => Action.handlePointerInput(e));

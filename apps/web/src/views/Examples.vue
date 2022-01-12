@@ -249,6 +249,27 @@ Inter-VariableFont_slnt,wght.ttf (803 KB)
       <br />
       <br />
 
+      <p
+        class="codepen"
+        data-height="300"
+        data-theme-id="light"
+        data-default-tab="html,result"
+        data-slug-hash="WNZYjLN"
+        data-editable="true"
+        data-user="LUCKYTH">
+        <span
+          >See the Pen
+          <a href="https://codepen.io/LUCKYTH/pen/WNZYjLN"> Rolling Text 2</a>
+          by Tim (<a href="https://codepen.io/LUCKYTH">@LUCKYTH</a>) on
+          <a href="https://codepen.io">CodePen</a>.</span
+        >
+      </p>
+
+      <br />
+      <br />
+      <br />
+      <br />
+
       <p>Weight animation + 3D transform</p>
 
       <p

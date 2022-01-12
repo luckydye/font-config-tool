@@ -36,30 +36,34 @@ export default class Fonts {
     for (let i = 0; i < googleFonts.length; i += 1) {
       const font = googleFonts[i];
       // eslint-disable-next-line no-await-in-loop
-      const meta = await this.getMetaData(font.family);
+      const meta = await this.getMetaData(font.family).catch(err => {
+        console.error(err);
+      })
 
-      let params = '';
+      if(meta) {
+        let params = '';
 
-      if (meta.axes.length > 0) {
-        // 'Alegreya:ital,wght@0,400..900'
-        const linkParams = [];
-        const linkParamValues = [];
-        // eslint-disable-next-line no-restricted-syntax
-        for (const axe of meta.axes) {
-          linkParams.push(axe.tag);
-          linkParamValues.push(`${axe.min}..${axe.max}`);
+        if (meta.axes.length > 0) {
+          // 'Alegreya:ital,wght@0,400..900'
+          const linkParams = [];
+          const linkParamValues = [];
+          // eslint-disable-next-line no-restricted-syntax
+          for (const axe of meta.axes) {
+            linkParams.push(axe.tag);
+            linkParamValues.push(`${axe.min}..${axe.max}`);
+          }
+
+          params = `:${linkParams.join(',')}@${linkParamValues.join(',')}`;
         }
 
-        params = `:${linkParams.join(',')}@${linkParamValues.join(',')}`;
+        list.push({
+          family: font.family,
+          axes: meta.axes,
+          creators: meta.designers,
+          files: font.files,
+          linkUrl: `https://fonts.googleapis.com/css2?family=${font.family.replace(' ', '+')}${params}&display=swap`,
+        });
       }
-
-      list.push({
-        family: font.family,
-        axes: meta.axes,
-        creators: meta.designers,
-        files: font.files,
-        linkUrl: `https://fonts.googleapis.com/css2?family=${font.family.replace(' ', '+')}${params}&display=swap`,
-      });
     }
 
     fonts = list;
@@ -68,7 +72,12 @@ export default class Fonts {
 
   static async getMetaData(family: string) {
     const info = await this.metadata();
-    return info.find((font) => font.family === family);
+
+    const font = info.find((font) => font.family.toLocaleLowerCase() === family.toLocaleLowerCase());
+    if(font) {
+      return font;
+    }
+    throw new Error("Selected Font not found");
   }
 
   static getFont(family: string): Font | undefined {

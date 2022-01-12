@@ -154,6 +154,8 @@ export default class FluidInput extends LitElement {
           this.inputValue.disabled = false;
           focused = true;
 
+          this.setAttribute("active", "");
+
           this.inputValue.focus();
         }
       });
@@ -223,6 +225,7 @@ export default class FluidInput extends LitElement {
       if (!this.inputValue) return;
       this.inputValue.disabled = true;
       focused = false;
+      this.removeAttribute("active");
     };
 
     const submit = () => {
@@ -238,8 +241,10 @@ export default class FluidInput extends LitElement {
 
         cancelInput();
       } else {
-        this.setValue(parseFloat(this.inputValue.value));
+        const evalValue = eval(this.inputValue.value);
+        this.setValue(parseFloat(evalValue));
         this.inputValue.disabled = true;
+        this.removeAttribute("active");
         focused = false;
       }
     };
@@ -377,7 +382,10 @@ export default class FluidInput extends LitElement {
       .value-suffix {
           opacity: 0.5;
           pointer-events: none;
-          margin-left: 8px;
+      }
+
+      :host([active]) .value-suffix {
+        display: none;
       }
 
       .input-value:focus {

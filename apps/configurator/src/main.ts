@@ -1,4 +1,4 @@
-import '../configurator.html';
+import '../index.html';
 import '../configurator.css';
 
 // shared components

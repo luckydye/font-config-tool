@@ -2,8 +2,14 @@ const path = require('path');
 const fs = require('fs');
 
 if (process.env.NODE_ENV === "production") {
+  if (!fs.existsSync(path.resolve('../../dist')))
+    fs.mkdirSync(path.resolve('../../dist'));
+  if (!fs.existsSync(path.resolve('../../dist/configurator')))
+    fs.mkdirSync(path.resolve('../../dist/configurator'));
+    
   fs.copyFileSync(path.resolve('./font-registry.json'),
-    path.resolve('../../dist/font-registry.json'));
+    path.resolve('../../dist/configurator/font-registry.json'));
+    
 }
 
 module.exports = {
@@ -31,6 +37,6 @@ module.exports = {
   },
   output: {
     filename: 'configurator.js',
-    path: path.resolve(__dirname, '../../dist'),
+    path: path.resolve(__dirname, '../../dist/configurator'),
   },
 };

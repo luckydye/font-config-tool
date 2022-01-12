@@ -65,11 +65,6 @@
         <br>
       </div>
 
-      <div class="section-container">
-        <h2>Configurator</h2>
-        <iframe src="./configurator.html" />
-      </div>
-
       <router-link to="/examples" >
         <link-button>See some more Examples</link-button>
       </router-link>

@@ -37,6 +37,7 @@ body {
 .text * {
   position: relative;
   outline: none;
+  margin: 35px 0;
 }
 
 .text h1[focus]::after,

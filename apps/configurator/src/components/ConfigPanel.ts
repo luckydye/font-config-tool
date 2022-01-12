@@ -65,6 +65,10 @@ export default class ConfigPanel extends LitElement {
           text-transform: capitalize;
         }
 
+        .font-axes .label {
+          float: left;
+        }
+
         .delete-btn {
           --padding: 2px;
           --background: transparent;
@@ -143,6 +147,20 @@ export default class ConfigPanel extends LitElement {
 
         input-switch {
           margin-top: 4px;
+        }
+
+        link-button.reset-btn {
+          --padding: 0px;
+          --background: transparent;
+          float: right;
+          --icon-size: 15px;
+          color: #333;
+          margin: 5px 0px 2px;
+          opacity: 0.9;
+        }
+        link-button.reset-btn:hover {
+          opacity: 1;
+          --background: #c4c4c4;
         }
     `;
   }
@@ -244,8 +262,9 @@ export default class ConfigPanel extends LitElement {
             </div>
             <div>
               <div class="label">Italic</div>
+              <div>
                 <input-Switch value="${0}" state-key="${this.stateId}" state-name="font-italic"></input-Switch>
-              <br>
+              </div>
             </div>
           </div>
 
@@ -274,10 +293,19 @@ export default class ConfigPanel extends LitElement {
             <div class="label">Available Axes</div>
 
             ${this.font?.axes.map((ax: { tag: string, min: number, max: number, defaultValue: number }) => html`
-              <div class="label">${AxesTranslations[ax.tag] || ax.tag}</div>
-              <fluid-input value="${this.value[`axes-${ax.tag}`] || ax.defaultValue}" min="${ax.min}" max="${ax.max}" steps="${(ax.max - ax.min) / 200}"
-                state-key="${this.stateId}" state-name="axes-${ax.tag}"></fluid-input>
-              <br>
+              <div class="font-axes">
+                <div>
+                  <div class="label">${AxesTranslations[ax.tag] || ax.tag}</div>
+                  <link-button class="reset-btn" displayIcon="restart_alt" 
+                    state-key="${this.stateId}" state-name="axes-${ax.tag}"
+                    @click="${(e: MouseEvent) => {
+                      e.target?.dispatchEvent(new CustomEvent("change", { detail: { value: ax.defaultValue }, bubbles: true }));
+                    }}"></link-button>
+                </div>
+                <fluid-input value="${this.value[`axes-${ax.tag}`] || ax.defaultValue}" min="${ax.min}" max="${ax.max}" steps="${(ax.max - ax.min) / 200}"
+                  state-key="${this.stateId}" state-name="axes-${ax.tag}"></fluid-input>
+                <br>
+              </div>
             `)}
           ` : html`
             <div class="label">Not a variable font</div>

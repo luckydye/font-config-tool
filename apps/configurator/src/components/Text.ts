@@ -227,6 +227,9 @@ export default class Text extends LitElement {
               font-variation-settings: ${variationSettings.join(', ')};
               line-height: ${config['line-height']};
               letter-spacing: ${config['letter-spacing']}em;
+
+              text-decoration-thickness: ${config["axes-wght"] / 4500}em;
+              text-underline-offset: 0.1em;
             }
           `;
         }

@@ -3,5 +3,5 @@
         "source.fixAll.eslint": true,
     },
     "eslint.validate": ["javascript"],
-    "liveServer.settings.root": "./dist/web"
+    "liveServer.settings.root": "./dist/configurator"
 }

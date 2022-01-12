@@ -84,6 +84,8 @@ export default class DropdownButton extends LitElement {
       .value {
         position: relative;
         padding-right: 15px;
+        vertical-align: middle;
+        display: inline-block;
       }
 
       .value::after {

@@ -24548,9 +24548,7 @@
           "min": 100.0,
           "max": 900.0,
           "defaultValue": 400.0
-        }
-      ],
-      "unsupportedAxes": [
+        },
         {
           "tag": "slnt",
           "min": -10.0,
@@ -24558,6 +24556,7 @@
           "defaultValue": 0.0
         }
       ],
+      "unsupportedAxes": [],
       "designers": [
         "Rasmus Andersson"
       ],

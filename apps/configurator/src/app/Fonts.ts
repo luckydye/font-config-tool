@@ -9,6 +9,12 @@ import VariableFont from 'variablefont.js';
 
 export interface Font {
   family: string,
+  unsupportedAxes?: {
+    tag: string,
+    min: number,
+    max: number,
+    defaultValue: number
+  }[],
   axes: {
     tag: string,
     min: number,
@@ -18,10 +24,14 @@ export interface Font {
   files: { [key: string]: string },
   creators: Array<string>,
   linkUrl: string,
+  source?: string,
 }
 
 let fonts: Array<Font> = [];
 let metadata: Array<any> = [];
+
+let isLoadingMetadata = false;
+let metadataLoadedCallback: Function[] = [];
 
 export default class Fonts {
   static async getFontList(): Promise<Array<Font>> {
@@ -37,6 +47,11 @@ export default class Fonts {
 
     for (let i = 0; i < googleFonts.length; i += 1) {
       const font = googleFonts[i];
+
+      // skip fonts that are already loaded in custom fonts
+      if(list.find(f => f.family == font.family))
+        continue;
+
       // eslint-disable-next-line no-await-in-loop
       const meta = await this.getMetaData(font.family).catch(err => {
         console.error(err);
@@ -54,16 +69,17 @@ export default class Fonts {
             linkParams.push(axe.tag);
             linkParamValues.push(`${axe.min}..${axe.max}`);
           }
-
           params = `:${linkParams.join(',')}@${linkParamValues.join(',')}`;
         }
 
         list.push({
           family: font.family,
           axes: meta.axes,
+          unsupportedAxes: meta.unsupportedAxes,
           creators: meta.designers,
           files: font.files,
           linkUrl: `https://fonts.googleapis.com/css2?family=${font.family.replace(' ', '+')}${params}&display=swap`,
+          source: "Google Fonts"
         });
       }
     }
@@ -94,8 +110,19 @@ export default class Fonts {
 
   static async metadata(): Promise<Array<any>> {
     if (metadata.length > 0) return metadata;
+    if(isLoadingMetadata) {
+      return new Promise((resolve) => {
+        metadataLoadedCallback.push(() => {
+          resolve(metadata);
+        })
+      })
+    }
+    isLoadingMetadata = true;
     return fetch('./font-registry.json').then((res) => res.json()).then((data) => {
       metadata = data.familyMetadataList;
+      for(let callback of metadataLoadedCallback) {
+        callback();
+      }
       return metadata;
     });
   }
@@ -107,6 +134,7 @@ export default class Fonts {
   // Example: "/fonts/RobotoFlex[GRAD,XOPQ,XTRA,YOPQ,YTAS,YTDE,YTFI,YTLC,YTUC,opsz,slnt,wdth,wght].ttf"
   static async register(src: string): Promise<Font | undefined> {
     return new Promise((resolve, reject) => {
+      // @ts-ignore
       opentype.load(src, function(err: Error, font: VariableFont) {
         if (err) {
             reject(undefined);

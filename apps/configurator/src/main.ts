@@ -1,6 +1,10 @@
+import '../configurator.html';
+import '../configurator.css';
+
 // shared components
 import 'ui/components/Button.ts';
 import 'ui/components/ChildSelector.ts';
+import 'ui/components/Switch.ts';
 // app components
 import './components/Text.ts';
 import './components/AppState.ts';

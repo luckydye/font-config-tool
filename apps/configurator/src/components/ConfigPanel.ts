@@ -138,6 +138,11 @@ export default class ConfigPanel extends LitElement {
           gap: 10px;
           display: grid;
           grid-auto-flow: column;
+          grid-auto-columns: 1fr;
+        }
+
+        input-switch {
+          margin-top: 4px;
         }
     `;
   }
@@ -227,14 +232,21 @@ export default class ConfigPanel extends LitElement {
             </div>
           </div>
 
-          <div>
-            <div class="label">Decoration</div>
-            <child-selector class="selector" activechild="${this.value['format-decoration']}"
-              state-key="${this.stateId}" state-name="format-decoration">
-              <link-button displayIcon="close" title="None"></link-button>
-              <link-button displayIcon="format_underlined" title="Underline"></link-button>
-              <link-button displayIcon="format_strikethrough" title="Line Through"></link-button>
-            </child-selector>
+          <div class="grid">
+            <div>
+              <div class="label">Decoration</div>
+              <child-selector class="selector" activechild="${this.value['format-decoration']}"
+                state-key="${this.stateId}" state-name="format-decoration">
+                <link-button displayIcon="close" title="None"></link-button>
+                <link-button displayIcon="format_underlined" title="Underline"></link-button>
+                <link-button displayIcon="format_strikethrough" title="Line Through"></link-button>
+              </child-selector>
+            </div>
+            <div>
+              <div class="label">Italic</div>
+                <input-Switch value="${0}" state-key="${this.stateId}" state-name="font-italic"></input-Switch>
+              <br>
+            </div>
           </div>
 
           <div class="label">Size</div>
@@ -255,11 +267,6 @@ export default class ConfigPanel extends LitElement {
                 state-key="${this.stateId}" state-name="letter-spacing"></fluid-input>
             </div>
           </div>
-
-          <div class="label">Italic</div>
-          <fluid-input value="${0}" min="${0}" max="${1}" steps="${1}"
-            state-key="${this.stateId}" state-name="font-italic"></fluid-input>
-          <br>
 
           <br>
 

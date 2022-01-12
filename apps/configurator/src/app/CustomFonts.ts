@@ -89,21 +89,27 @@ export default [
     linkUrl: './fonts/RobotoFlex.css',
   },
 
-  // {
-  //   family: 'Inter',
-  //   axes: [
-  //     {
-  //       tag: 'wght',
-  //       min: 100,
-  //       max: 900,
-  //       defaultValue: 600,
-  //     },
-  //   ],
-  //   files: {
-  //     regular: '../fonts/Inter/Inter-VariableFont_slnt,wght.ttf',
-  //   },
-  //   creators: ['Rasmus Andersson'],
-  //   linkUrl: './fonts/RobotoFlex.css',
-  // },
+  {
+    family: 'Inter',
+    axes: [
+      {
+        tag: 'wght',
+        min: 100,
+        max: 900,
+        defaultValue: 600,
+      },
+      {
+        "tag": "slnt",
+        "min": -10.0,
+        "max": 0.0,
+        "defaultValue": 0.0
+      }
+    ],
+    files: {
+      regular: '../fonts/Inter/Inter-VariableFont_slnt,wght.ttf',
+    },
+    creators: ['Rasmus Andersson'],
+    linkUrl: './fonts/Inter.css',
+  },
 
 ];

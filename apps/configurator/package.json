@@ -3,8 +3,8 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-      "build": "webpack build -c ./webpack.config.js",
-      "dev": "webpack watch -c ./webpack.config.js"
+      "build": "webpack build",
+      "dev": "webpack --watch"
     },
     "dependencies": {
       "lit": "^2.0.2",

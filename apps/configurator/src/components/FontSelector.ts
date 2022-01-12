@@ -57,7 +57,7 @@ export default class FontSelector extends LitElement {
 
             <div class="font-list">
               ${this.fonts.filter(font => {
-                return font.axes.length > 0;
+                return (font.axes.length > 0) || ((font.unsupportedAxes?.length || 0) > 0);
               }).map((font) => html`
                 <div class="font" @click="${() => { this.select(font); }}">
 

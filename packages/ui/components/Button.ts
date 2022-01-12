@@ -47,6 +47,7 @@ export default class LinkButton extends LitElement {
         .open-link:active {
             transition: transform 0.01s ease-out 0s;
             border-color: #CCC;
+            filter: brightness(0.95);
         }
         .material-icons {
             display: var(--display-icon, "inline-block");

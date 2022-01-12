@@ -6,4 +6,6 @@ window.addEventListener('scroll', () => {
   document.body.style.setProperty('--scrollY', `${window.scrollY}px`);
 });
 
-createApp(App).use(router).mount('#app');
+const app = createApp(App);
+app.config.compilerOptions.isCustomElement = (tag) => customElements.get(tag) != null;
+app.use(router).mount('#app');

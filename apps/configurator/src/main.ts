@@ -5,6 +5,7 @@ import '../configurator.css';
 import 'ui/components/Button.ts';
 import 'ui/components/ChildSelector.ts';
 import 'ui/components/Switch.ts';
+import UINotification from 'ui/components/UINotification';
 // app components
 import './components/Text.ts';
 import './components/AppState.ts';
@@ -15,6 +16,7 @@ import './components/ActionButton.ts';
 import { Action } from './app/Action';
 import Fonts from './app/Fonts';
 import State from './app/State';
+
 
 Action.register({
   name: "tool.uploadfont",
@@ -30,9 +32,12 @@ Action.register({
           const url = URL.createObjectURL(blob);
           const font = await Fonts.register(url);
           console.log(font);
+
+          new UINotification({ text: `${font?.family} successfully imported.` }).show();
         }
       } catch(err) {
         console.error(err);
+        new UINotification({ text: `Failed to import selected file.` }).show();
       }
     }
     input.click();

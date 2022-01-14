@@ -364,7 +364,7 @@ export default class FluidInput extends LitElement {
           justify-content: center;
           border: none;
           background: transparent;
-          margin: 0 -10px;
+          margin: 0;
           width: auto;
           padding: 0;
           color: inherit;

@@ -18,6 +18,13 @@ body {
   z-index: 10000;
 }
 
+notifications {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
 /*  Text Rendering  */
 
 .text {

@@ -1,0 +1,12 @@
+
+.app-typography-headline-2 {
+    font-family: Roboto Flex, serif;
+    min-width: 500px;
+
+    /* RobotoFlex[GRAD,XOPQ,XTRA,YOPQ,YTAS,YTDE,YTFI,YTLC,YTUC,opsz,slnt,wdth,wght] */
+    font-variation-settings: 
+        'wght' 800,
+        'wdth' 800,
+        'opsz' 2,
+        'slnt' -5;
+}

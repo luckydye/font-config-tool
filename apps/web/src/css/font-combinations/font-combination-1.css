@@ -1,0 +1,12 @@
+
+.font-combination-1 h3 {
+    font-size: 28px;
+    font-family: Roboto Flex, serif;
+    font-variation-settings: "wght" 800, "wdth" 800, "opsz" 80, "slnt" -8.9, "GRAD" -81, "XTRA" 480, "XOPQ" 54, "YOPQ" 68, "YTLC" 430, "YTUC" 722, "YTAS" 854, "YTDE" -218, "YTFI" 671;
+}
+
+.font-combination-1 p {
+    font-variation-settings: "wght" 320;
+    font-style: oblique 0deg;
+    font-family: Roboto Flex, serif;
+}

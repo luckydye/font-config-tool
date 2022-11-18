@@ -1,0 +1,12 @@
+
+.font-combination-6 h3 {
+    font-size: 28px;
+    font-family: Inter, serif;
+    font-variation-settings: "wght" 800, "slnt" -3;
+}
+
+.font-combination-6 p {
+    font-size: 16px;
+    font-variation-settings: "wght" 300;
+    font-family: Inter, serif;
+}

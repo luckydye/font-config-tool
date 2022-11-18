@@ -1,0 +1,16 @@
+@import "/fonts/RobotoFlex.css";
+
+@font-face {
+    font-family: GinetoFit;
+    src: url(/fonts/Gineto/GinetoFitTest-Regular.otf);
+}
+
+@font-face {
+    font-family: Gineto;
+    src: url(/fonts/Gineto/GinetoTest-Regular.otf);
+}
+
+@font-face {
+    font-family: Inter;
+    src: url(/fonts/Inter/Inter-VariableFont_slnt,wght.ttf);
+}

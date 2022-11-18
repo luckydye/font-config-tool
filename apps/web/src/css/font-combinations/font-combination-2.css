@@ -1,0 +1,27 @@
+
+@keyframes font-anim-test {
+    0% {
+        opacity: 0;
+        font-variation-settings: 'wght' 1000, 'slnt' 0;
+        letter-spacing: 0.0133em;
+        color: #eee;
+    }
+    20% {
+        opacity: 0.1;
+    }
+    100% {
+        font-variation-settings: 'wght' 100, 'slnt' 0;
+        letter-spacing: 0.05em;
+        color: #333;
+    }
+}
+
+.app-typography-headline-1 {
+    font-size: 69px;
+    font-family: Inter, serif;
+
+    --scaled-font-weight: calc(1000 / (var(--viewport-scale) + 200));
+
+    animation: font-anim-test .5s ease both;
+}
+ 

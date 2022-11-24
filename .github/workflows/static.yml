@@ -35,7 +35,7 @@ jobs:
       - name: Build
         uses: actions/setup-node@v3
       - run: npm ci 
-      - run: cd apps/configurator && npm run build
+      - run: cd apps/configurator && NODE_ENV=production npm run build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:

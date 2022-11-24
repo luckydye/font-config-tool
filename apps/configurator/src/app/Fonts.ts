@@ -1,30 +1,40 @@
-import GoogleFonts from '../services/GoogleFonts';
-import CustomFonts from './CustomFonts';
+import GoogleFonts from "../services/GoogleFonts";
+import CustomFonts from "./CustomFonts";
 
 //@ts-ignore
-import opentype from 'opentype.js';
+import opentype from "opentype.js";
 //@ts-ignore
-import VariableFont from 'variablefont.js';
+// import VariableFont from 'variablefont.js';
 // TODO: I had to modify the dependency in node_modules to export anything...
 
+declare global {
+  var VariableFont: any;
+}
+
+if (!window.VariableFont) {
+  window.VariableFont = function () {
+    console.log("Error loading dependencies");
+  };
+}
+
 export interface Font {
-  family: string,
+  family: string;
   unsupportedAxes?: {
-    tag: string,
-    min: number,
-    max: number,
-    defaultValue: number
-  }[],
+    tag: string;
+    min: number;
+    max: number;
+    defaultValue: number;
+  }[];
   axes: {
-    tag: string,
-    min: number,
-    max: number,
-    defaultValue: number
-  }[],
-  files: { [key: string]: string },
-  creators: Array<string>,
-  linkUrl: string,
-  source?: string,
+    tag: string;
+    min: number;
+    max: number;
+    defaultValue: number;
+  }[];
+  files: { [key: string]: string };
+  creators: Array<string>;
+  linkUrl: string;
+  source?: string;
 }
 
 let fonts: Array<Font> = [];
@@ -49,16 +59,15 @@ export default class Fonts {
       const font = googleFonts[i];
 
       // skip fonts that are already loaded in custom fonts
-      if(list.find(f => f.family == font.family))
-        continue;
+      if (list.find((f) => f.family == font.family)) continue;
 
       // eslint-disable-next-line no-await-in-loop
-      const meta = await this.getMetaData(font.family).catch(err => {
+      const meta = await this.getMetaData(font.family).catch((err) => {
         console.error(err);
-      })
+      });
 
-      if(meta) {
-        let params = '';
+      if (meta) {
+        let params = "";
 
         if (meta.axes.length > 0) {
           // 'Alegreya:ital,wght@0,400..900'
@@ -69,7 +78,7 @@ export default class Fonts {
             linkParams.push(axe.tag);
             linkParamValues.push(`${axe.min}..${axe.max}`);
           }
-          params = `:${linkParams.join(',')}@${linkParamValues.join(',')}`;
+          params = `:${linkParams.join(",")}@${linkParamValues.join(",")}`;
         }
 
         list.push({
@@ -78,8 +87,11 @@ export default class Fonts {
           unsupportedAxes: meta.unsupportedAxes,
           creators: meta.designers,
           files: font.files,
-          linkUrl: `https://fonts.googleapis.com/css2?family=${font.family.replace(' ', '+')}${params}&display=swap`,
-          source: "Google Fonts"
+          linkUrl: `https://fonts.googleapis.com/css2?family=${font.family.replace(
+            " ",
+            "+"
+          )}${params}&display=swap`,
+          source: "Google Fonts",
         });
       }
     }
@@ -91,8 +103,10 @@ export default class Fonts {
   static async getMetaData(family: string) {
     const info = await this.metadata();
 
-    const font = info.find((font) => font.family.toLocaleLowerCase() === family.toLocaleLowerCase());
-    if(font) {
+    const font = info.find(
+      (font) => font.family.toLocaleLowerCase() === family.toLocaleLowerCase()
+    );
+    if (font) {
       return font;
     }
     throw new Error("Selected Font not found");
@@ -110,21 +124,23 @@ export default class Fonts {
 
   static async metadata(): Promise<Array<any>> {
     if (metadata.length > 0) return metadata;
-    if(isLoadingMetadata) {
+    if (isLoadingMetadata) {
       return new Promise((resolve) => {
         metadataLoadedCallback.push(() => {
           resolve(metadata);
-        })
-      })
+        });
+      });
     }
     isLoadingMetadata = true;
-    return fetch('./font-registry.json').then((res) => res.json()).then((data) => {
-      metadata = data.familyMetadataList;
-      for(let callback of metadataLoadedCallback) {
-        callback();
-      }
-      return metadata;
-    });
+    return fetch("./font-registry.json")
+      .then((res) => res.json())
+      .then((data) => {
+        metadata = data.familyMetadataList;
+        for (let callback of metadataLoadedCallback) {
+          callback();
+        }
+        return metadata;
+      });
   }
 
   static getInfo(fontSrc: string) {
@@ -135,26 +151,31 @@ export default class Fonts {
   static async register(src: string): Promise<Font | undefined> {
     return new Promise((resolve, reject) => {
       // @ts-ignore
-      opentype.load(src, function(err: Error, font: VariableFont) {
+      opentype.load(src, function (err: Error, font: VariableFont) {
         if (err) {
-            reject(undefined);
+          reject(undefined);
         } else {
           const vf = new VariableFont(font);
           const axes = vf.getAxes();
 
           const family = font.names.fullName.en;
 
-          const styleBlob = new Blob([`
+          const styleBlob = new Blob(
+            [
+              `
             @font-face {
               font-family: ${family};
               src: url(${src});
             }
-          `], { type: "text/css" });
+          `,
+            ],
+            { type: "text/css" }
+          );
           const blobUrl = URL.createObjectURL(styleBlob);
 
           const fontObject = {
             family: family,
-            creators: [ font.names.designer.en ],
+            creators: [font.names.designer.en],
             files: { regular: src },
             linkUrl: blobUrl,
             axes: axes.map((xs: any) => ({
@@ -162,7 +183,7 @@ export default class Fonts {
               min: xs.minValue,
               max: xs.maxValue,
               defaultValue: xs.defaultValue,
-            }))
+            })),
           };
 
           fonts.push(fontObject);

@@ -1,44 +1,52 @@
 <!DOCTYPE html>
 <html lang="">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
 
     <title>Configurator</title>
 
-    <link rel="stylesheet" href="configurator.css">
+    <script src="https://unpkg.com/variablefont.js@0.0.0/variablefont.js"></script>
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="configurator.css" />
+
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+      type="text/css"
+    />
   </head>
   <body>
     <div id="app">
-
       <notifications></notifications>
-    
+
       <div class="header-spacer"></div>
 
       <div class="document">
         <app-state>
           <div class="menubar">
-            <action-button tooltip="Import Local Font" 
-                          displayicon="upload_file" 
-                          action="tool.uploadfont"></action-button>
+            <action-button
+              tooltip="Import Local Font"
+              displayicon="upload_file"
+              action="tool.uploadfont"
+            ></action-button>
 
-            <action-button tooltip="Reset" 
-                          displayicon="restart_alt" 
-                          action="tool.reset"></action-button>
+            <action-button
+              tooltip="Reset"
+              displayicon="restart_alt"
+              action="tool.reset"
+            ></action-button>
           </div>
           <document-sizer state-key="document_width"></document-sizer>
           <text-editor></text-editor>
           <div class="side-bar">
             <div class="title">Font Styles</div>
-            <br>
+            <br />
             <side-panel></side-panel>
           </div>
         </app-state>
       </div>
-
     </div>
 
     <script src="configurator.js"></script>
